@@ -1,0 +1,32 @@
+name: Playwright tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: Create .env file
+        run: |
+          echo "API_HTTP_CLIENT.URL=${{ secrets.API_BASE_URL || 'https://api.example.com' }}" >> .env
+          echo "API_HTTP_CLIENT.TIMEOUT=30" >> .env
+
+      - name: Run API template tests
+        run: npx playwright test tests/api/template --project=api
