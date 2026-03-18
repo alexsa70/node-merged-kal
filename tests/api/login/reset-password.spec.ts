@@ -4,9 +4,8 @@ import { fakeEmail } from '../../../src/tools/fakers';
 const EXPECTED_MESSAGE = 'Password reset request processed';
 
 test.describe('Authentication /reset_password', () => {
-  test('valid email -> 200 + expected message', async ({ apiClient, settings }) => {
-    test.skip(!settings.authCredentials, 'AUTH_CREDENTIALS are not configured in .env');
-    const response = await apiClient.resetPassword({ email: settings.authCredentials?.email ?? '' });
+  test('valid email -> 200 + expected message', async ({ apiClient }) => {
+    const response = await apiClient.resetPassword({ email: fakeEmail() });
 
     expect(response.status()).toBe(200);
     const body = (await response.json()) as Record<string, unknown> | string;
@@ -15,9 +14,8 @@ test.describe('Authentication /reset_password', () => {
   });
 
   test('with org_name -> 200', async ({ apiClient, settings }) => {
-    test.skip(!settings.authCredentials, 'AUTH_CREDENTIALS are not configured in .env');
     const response = await apiClient.resetPassword({
-      email: settings.authCredentials?.email ?? '',
+      email: fakeEmail(),
       org_name: settings.orgName ?? 'acme-corp',
     });
     expect(response.status()).toBe(200);
@@ -28,27 +26,24 @@ test.describe('Authentication /reset_password', () => {
     expect(response.status()).toBe(200);
   });
 
-  test('valid/invalid emails return identical response', async ({ apiClient, settings }) => {
-    test.skip(!settings.authCredentials, 'AUTH_CREDENTIALS are not configured in .env');
-    const valid = await apiClient.resetPassword({ email: settings.authCredentials?.email ?? '' });
-    const invalid = await apiClient.resetPassword({ email: fakeEmail() });
+  test('valid/invalid emails return identical response', async ({ apiClient }) => {
+    const first = await apiClient.resetPassword({ email: fakeEmail() });
+    const second = await apiClient.resetPassword({ email: fakeEmail() });
 
-    expect(valid.status()).toBe(invalid.status());
-    expect(await valid.json()).toEqual(await invalid.json());
+    expect(first.status()).toBe(second.status());
+    expect(await first.json()).toEqual(await second.json());
   });
 
-  test('timing difference < 500ms', async ({ apiClient, settings }) => {
-    test.skip(!settings.authCredentials, 'AUTH_CREDENTIALS are not configured in .env');
-
+  test('timing difference < 500ms', async ({ apiClient }) => {
     const t1 = Date.now();
-    await apiClient.resetPassword({ email: settings.authCredentials?.email ?? '' });
-    const validMs = Date.now() - t1;
+    await apiClient.resetPassword({ email: fakeEmail() });
+    const firstMs = Date.now() - t1;
 
     const t2 = Date.now();
     await apiClient.resetPassword({ email: fakeEmail() });
-    const invalidMs = Date.now() - t2;
+    const secondMs = Date.now() - t2;
 
-    expect(Math.abs(validMs - invalidMs)).toBeLessThan(500);
+    expect(Math.abs(firstMs - secondMs)).toBeLessThan(500);
   });
 
   test('missing email -> 400/422', async ({ apiClient }) => {
@@ -61,12 +56,12 @@ test.describe('Authentication /reset_password', () => {
     expect([400, 422]).toContain(response.status());
   });
 
-  test('rate limit -> 429 after repeated requests', async ({ apiClient, settings }) => {
-    test.skip(!settings.authCredentials, 'AUTH_CREDENTIALS are not configured in .env');
+  test('rate limit -> 429 after repeated requests', async ({ apiClient }) => {
+    const email = fakeEmail();
     const statusCodes: number[] = [];
 
     for (let i = 0; i < 15; i += 1) {
-      const response = await apiClient.resetPassword({ email: settings.authCredentials?.email ?? '' });
+      const response = await apiClient.resetPassword({ email });
       statusCodes.push(response.status());
       if (response.status() === 429) {
         break;
@@ -76,9 +71,8 @@ test.describe('Authentication /reset_password', () => {
     expect(statusCodes).toContain(429);
   });
 
-  test('response must not leak user data', async ({ apiClient, settings }) => {
-    test.skip(!settings.authCredentials, 'AUTH_CREDENTIALS are not configured in .env');
-    const response = await apiClient.resetPassword({ email: settings.authCredentials?.email ?? '' });
+  test('response must not leak user data', async ({ apiClient }) => {
+    const response = await apiClient.resetPassword({ email: fakeEmail() });
     const body = (await response.json()) as Record<string, unknown>;
 
     const sensitiveKeys = ['token', 'accessToken', 'password', 'id', 'email'];

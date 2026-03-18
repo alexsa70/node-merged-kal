@@ -38,7 +38,7 @@ async function globalSetup(_config: FullConfig): Promise<void> {
   const response = await context.post('/login', {
     data: {
       orgName: settings.orgName ?? '',
-      identity: settings.authCredentials.email,
+      identity: settings.authCredentials.identity,
       password: settings.authCredentials.password,
       otp_code: otpCode,
     },

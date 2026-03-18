@@ -5,7 +5,7 @@ dotenv.config();
 export type BrowserName = 'chromium' | 'firefox' | 'webkit';
 
 type AuthCredentials = {
-  email: string;
+  identity: string;
   password: string;
   otpSecret?: string;
 };
@@ -32,13 +32,13 @@ function envBool(name: string, fallback: boolean): boolean {
 }
 
 function readCreds(prefix: string): AuthCredentials | undefined {
-  const email = env(`${prefix}.EMAIL`);
+  const identity = env(`${prefix}.EMAIL`);
   const password = env(`${prefix}.PASSWORD`);
-  if (!email || !password) {
+  if (!identity || !password) {
     return undefined;
   }
   return {
-    email,
+    identity,
     password,
     otpSecret: env(`${prefix}.OTP_SECRET`),
   };

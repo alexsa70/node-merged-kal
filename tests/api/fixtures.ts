@@ -54,56 +54,53 @@ export const test = base.extend<Fixtures>({
     await use(authState.token ?? '');
   },
 
-  tokensByRole: [
-    async ({}, use) => {
-      const settings = getSettings();
-      const roleTokens: RoleTokens = {};
-      const context = await request.newContext({
-        baseURL: settings.apiHttpClient.url,
-        timeout: settings.apiHttpClient.timeoutMs,
-        ignoreHTTPSErrors: true,
-      });
+  tokensByRole: async ({}, use) => {
+    const settings = getSettings();
+    const roleTokens: RoleTokens = {};
+    const context = await request.newContext({
+      baseURL: settings.apiHttpClient.url,
+      timeout: settings.apiHttpClient.timeoutMs,
+      ignoreHTTPSErrors: true,
+    });
 
-      const roleConfigs = {
-        super_admin: settings.authCredentialsSuperAdmin,
-        admin: settings.authCredentialsAdmin,
-        user: settings.authCredentialsUser,
-      } as const;
+    const roleConfigs = {
+      super_admin: settings.authCredentialsSuperAdmin,
+      admin: settings.authCredentialsAdmin,
+      user: settings.authCredentialsUser,
+    } as const;
 
-      for (const [role, creds] of Object.entries(roleConfigs) as Array<[
-        keyof typeof roleConfigs,
-        typeof roleConfigs[keyof typeof roleConfigs]
-      ]>) {
-        if (!creds) {
-          continue;
-        }
-
-        const otpCode = creds.otpSecret ? authenticator.generate(creds.otpSecret) : undefined;
-        const response = await context.post('/login', {
-          data: {
-            orgName: settings.orgName ?? '',
-            identity: creds.email,
-            password: creds.password,
-            otp_code: otpCode,
-          },
-          failOnStatusCode: false,
-        });
-
-        if (response.status() !== 200) {
-          continue;
-        }
-
-        const body = (await response.json()) as Record<string, unknown>;
-        if (typeof body.token === 'string') {
-          roleTokens[role] = body.token;
-        }
+    for (const [role, creds] of Object.entries(roleConfigs) as Array<[
+      keyof typeof roleConfigs,
+      typeof roleConfigs[keyof typeof roleConfigs]
+    ]>) {
+      if (!creds) {
+        continue;
       }
 
-      await use(roleTokens);
-      await context.dispose();
-    },
-    { scope: 'worker' },
-  ],
+      const otpCode = creds.otpSecret ? authenticator.generate(creds.otpSecret) : undefined;
+      const response = await context.post('/login', {
+        data: {
+          orgName: settings.orgName ?? '',
+          identity: creds.identity,
+          password: creds.password,
+          otp_code: otpCode,
+        },
+        failOnStatusCode: false,
+      });
+
+      if (response.status() !== 200) {
+        continue;
+      }
+
+      const body = (await response.json()) as Record<string, unknown>;
+      if (typeof body.token === 'string') {
+        roleTokens[role] = body.token;
+      }
+    }
+
+    await use(roleTokens);
+    await context.dispose();
+  },
 });
 
 export const expect = test.expect;
