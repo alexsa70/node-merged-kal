@@ -5,7 +5,7 @@ test.describe('User Service', () => {
   test('retrieve user by name', async ({ apiClient, tokensByRole, settings }) => {
     test.skip(!settings.userName, 'USER_NAME is not configured in .env');
     const token = tokenForRoles(tokensByRole, ['admin', 'user']);
-    const response = await apiClient.userRetrieve({ user_name: settings.userName }, token);
+    const response = await apiClient.user.retrieve({ user_name: settings.userName }, token);
 
     expect(response.status()).toBe(200);
     const body = (await response.json()) as Record<string, unknown>;
@@ -15,7 +15,7 @@ test.describe('User Service', () => {
   test('get user by id', async ({ apiClient, tokensByRole, settings }) => {
     test.skip(!settings.userId, 'USER_ID is not configured in .env');
     const token = tokenForRoles(tokensByRole, ['admin', 'user']);
-    const response = await apiClient.userGetById({ user_id: settings.userId }, token);
+    const response = await apiClient.user.getById({ user_id: settings.userId }, token);
 
     expect(response.status()).toBe(200);
     const body = (await response.json()) as Record<string, unknown>;
@@ -24,7 +24,7 @@ test.describe('User Service', () => {
 
   test('get all users', async ({ apiClient, tokensByRole }) => {
     const token = tokenForRoles(tokensByRole, ['admin', 'super_admin']);
-    const response = await apiClient.userGetAll(token);
+    const response = await apiClient.user.getAll(token);
 
     expect(response.status()).toBe(200);
     const body = (await response.json()) as Record<string, unknown>;
@@ -33,7 +33,7 @@ test.describe('User Service', () => {
 
   test('get roles', async ({ apiClient, tokensByRole }) => {
     const token = tokenForRoles(tokensByRole, ['admin', 'user']);
-    const response = await apiClient.userGetRoles(token);
+    const response = await apiClient.user.getRoles(token);
 
     expect(response.status()).toBe(200);
     const body = (await response.json()) as Record<string, unknown>;
@@ -43,7 +43,7 @@ test.describe('User Service', () => {
 
   test('unlock non-existing user -> 404', async ({ apiClient, tokensByRole }) => {
     const token = tokenForRoles(tokensByRole, ['admin', 'super_admin']);
-    const response = await apiClient.userUnlock({ username: 'nonexistent_user_qa_12345' }, token);
+    const response = await apiClient.user.unlock({ username: 'nonexistent_user_qa_12345' }, token);
 
     expect(response.status()).toBe(404);
     const body = (await response.json()) as Record<string, unknown>;
@@ -52,7 +52,7 @@ test.describe('User Service', () => {
 
   test('reset MFA non-existing user -> 404', async ({ apiClient, tokensByRole }) => {
     const token = tokenForRoles(tokensByRole, ['admin', 'super_admin']);
-    const response = await apiClient.userResetMfa({ user_id: '000000000000000000000000' }, token);
+    const response = await apiClient.user.resetMfa({ user_id: '000000000000000000000000' }, token);
 
     expect(response.status()).toBe(404);
     const body = (await response.json()) as Record<string, unknown>;
@@ -77,13 +77,13 @@ test.describe('User Service', () => {
       base_url: settings.userBaseUrl,
     };
 
-    const createResponse = await apiClient.userCreate(createPayload, token);
+    const createResponse = await apiClient.user.create(createPayload, token);
     expect(createResponse.status()).toBe(200);
 
     const createBody = (await createResponse.json()) as Record<string, unknown>;
     const userId = String(createBody.user_id);
 
-    const deleteResponse = await apiClient.userDelete({ user_id: userId }, token);
+    const deleteResponse = await apiClient.user.remove({ user_id: userId }, token);
     expect(deleteResponse.status()).toBe(200);
   });
 
@@ -91,7 +91,7 @@ test.describe('User Service', () => {
     test.skip(!settings.userId, 'USER_ID is not configured in .env');
     const token = tokenForRoles(tokensByRole, ['admin']);
 
-    const response = await apiClient.userUpdate(
+    const response = await apiClient.user.update(
       {
         user_id: settings.userId,
         first_name: `QA${fakeFirstName()}`,
@@ -106,7 +106,7 @@ test.describe('User Service', () => {
 
   test('delete non-existing user -> 404', async ({ apiClient, tokensByRole }) => {
     const token = tokenForRoles(tokensByRole, ['admin', 'super_admin']);
-    const response = await apiClient.userDelete({ user_id: '000000000000000000000000' }, token);
+    const response = await apiClient.user.remove({ user_id: '000000000000000000000000' }, token);
     expect(response.status()).toBe(404);
   });
 });

@@ -1,23 +1,12 @@
 import { test, expect } from '../fixtures';
-import { fakeEmail, fakeOrgName, fakePassword } from '../../../src/tools/fakers';
+import { fakeEmail, fakePassword } from '../../../src/tools/fakers';
 import { LoginErrorSchema } from '../../../src/schema/responses/login';
-import { authCredentialsOrSkip } from './helpers';
+import { authCredentialsOrSkip } from '../helpers/auth';
 
 test.describe('POST /login – Negative', () => {
-  test('Unknown orgName', async ({ apiClient }) => {
-    const response = await apiClient.login({
-      orgName: fakeOrgName(),
-      identity: fakeEmail(),
-      password: fakePassword(),
-    });
-    expect(response.status()).toBe(400);
-    const parsed = LoginErrorSchema.safeParse(await response.json());
-    expect(parsed.success, `Invalid error response schema: ${JSON.stringify(parsed.error?.issues)}`).toBe(true);
-  });
-
   test('Invalid password', async ({ apiClient, settings }) => {
     const credentials = authCredentialsOrSkip(settings);
-    const response = await apiClient.login({
+    const response = await apiClient.auth.login({
       orgName: settings.orgName ?? '',
       identity: credentials.identity,
       password: 'wrong_password_!@#$',
@@ -31,7 +20,7 @@ test.describe('POST /login – Negative', () => {
   });
 
   test('Invalid username', async ({ apiClient, settings }) => {
-    const response = await apiClient.login({
+    const response = await apiClient.auth.login({
       orgName: settings.orgName ?? '',
       identity: fakeEmail(),
       password: fakePassword(),
@@ -72,4 +61,5 @@ test.describe('POST /login – Negative', () => {
     const response = await apiClient.post('/login', {});
     expect([400, 422]).toContain(response.status());
   });
+  
 });

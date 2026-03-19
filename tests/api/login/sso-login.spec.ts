@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures';
 
 test.describe('Authentication /sso_login', () => {
   test('invalid code -> 400 with message', async ({ apiClient }) => {
-    const response = await apiClient.ssoLogin({
+    const response = await apiClient.auth.ssoLogin({
       orgName: 'acme-corp',
       code: 'invalid_code_xyz',
       redirect_uri: 'https://app.kalsense.com/auth/callback',
@@ -50,7 +50,7 @@ test.describe('Authentication /sso_login', () => {
   });
 
   test('unknown provider -> 400/422', async ({ apiClient }) => {
-    const response = await apiClient.ssoLogin({
+    const response = await apiClient.auth.ssoLogin({
       orgName: 'acme-corp',
       code: 'some_code',
       redirect_uri: 'https://app.kalsense.com/auth/callback',
@@ -60,7 +60,7 @@ test.describe('Authentication /sso_login', () => {
   });
 
   test('open redirect rejected -> 400/422', async ({ apiClient }) => {
-    const response = await apiClient.ssoLogin({
+    const response = await apiClient.auth.ssoLogin({
       orgName: 'acme-corp',
       code: 'some_code',
       redirect_uri: 'https://attacker.com/steal',
@@ -87,7 +87,7 @@ test.describe('Authentication /sso_login', () => {
   });
 
   test('SQL injection in orgName -> not 500', async ({ apiClient }) => {
-    const response = await apiClient.ssoLogin({
+    const response = await apiClient.auth.ssoLogin({
       orgName: "' OR '1'='1",
       code: 'some_code',
       redirect_uri: 'https://app.kalsense.com/auth/callback',
@@ -97,7 +97,7 @@ test.describe('Authentication /sso_login', () => {
   });
 
   test('JWT not leaked in error response', async ({ apiClient }) => {
-    const response = await apiClient.ssoLogin({
+    const response = await apiClient.auth.ssoLogin({
       orgName: 'acme-corp',
       code: 'invalid_code',
       redirect_uri: 'https://app.kalsense.com/auth/callback',

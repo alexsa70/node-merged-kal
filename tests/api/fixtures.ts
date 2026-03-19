@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { test as base, request } from '@playwright/test';
 import { authenticator } from 'otplib';
-import { APIClient } from '../../src/clients/operationsClient';
+import { ApiClient } from '../../src/clients/apiClient';
 import { PlaywrightHttpClient } from '../../src/clients/baseClient';
 import { getSettings, AppSettings } from '../../src/config/settings';
 
@@ -18,7 +18,7 @@ type RoleTokens = Partial<Record<'super_admin' | 'admin' | 'user', string>>;
 
 type Fixtures = {
   settings: AppSettings;
-  apiClient: APIClient;
+  apiClient: ApiClient;
   authState: AuthState;
   authToken: string;
   tokensByRole: RoleTokens;
@@ -42,7 +42,7 @@ export const test = base.extend<Fixtures>({
       timeout: settings.apiHttpClient.timeoutMs,
       ignoreHTTPSErrors: true,
     });
-    await use(new APIClient(new PlaywrightHttpClient(context)));
+    await use(new ApiClient(new PlaywrightHttpClient(context)));
     await context.dispose();
   },
 

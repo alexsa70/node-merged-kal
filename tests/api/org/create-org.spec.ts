@@ -33,7 +33,7 @@ function baseOrgPayload(settings: AppSettings): Record<string, unknown> {
 test.describe('Organizations /api/org/create positive', () => {
   test('required fields only -> 200 + org_id', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg(baseOrgPayload(settings), token);
+    const response = await apiClient.org.create(baseOrgPayload(settings), token);
     expect(response.status()).toBe(200);
     const body = (await response.json()) as Record<string, unknown>;
     expect(body.message).toBe('Organization created successfully');
@@ -43,7 +43,7 @@ test.describe('Organizations /api/org/create positive', () => {
   test('with org_description -> 200', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
     const payload = { ...baseOrgPayload(settings), org_description: 'Test organization description' };
-    const response = await apiClient.createOrg(payload, token);
+    const response = await apiClient.org.create(payload, token);
     expect(response.status()).toBe(200);
   });
 
@@ -51,26 +51,26 @@ test.describe('Organizations /api/org/create positive', () => {
     test(`color=${color} -> 200`, async ({ apiClient, settings, authState }) => {
       const token = requireAuthToken(authState);
       const payload = { ...baseOrgPayload(settings), org_color: color };
-      const response = await apiClient.createOrg(payload, token);
+      const response = await apiClient.org.create(payload, token);
       expect(response.status()).toBe(200);
     });
   }
 
   test('default_language=english -> 200', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg({ ...baseOrgPayload(settings), default_language: 'english' }, token);
+    const response = await apiClient.org.create({ ...baseOrgPayload(settings), default_language: 'english' }, token);
     expect(response.status()).toBe(200);
   });
 
   test('default_language=hebrew -> 200', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg({ ...baseOrgPayload(settings), default_language: 'hebrew' }, token);
+    const response = await apiClient.org.create({ ...baseOrgPayload(settings), default_language: 'hebrew' }, token);
     expect(response.status()).toBe(200);
   });
 
   test('PNG logo upload -> 200', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg(baseOrgPayload(settings), token, {
+    const response = await apiClient.org.create(baseOrgPayload(settings), token, {
       filename: 'logo.png',
       buffer: PNG_BYTES,
       contentType: 'image/png',
@@ -80,7 +80,7 @@ test.describe('Organizations /api/org/create positive', () => {
 
   test('permissions.files_access.manual_public=true -> 200', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg(
+    const response = await apiClient.org.create(
       { ...baseOrgPayload(settings), permissions: JSON.stringify({ files_access: { manual_public: true } }) },
       token,
     );
@@ -89,7 +89,7 @@ test.describe('Organizations /api/org/create positive', () => {
 
   test('permissions.cache valid ttl -> 200', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg(
+    const response = await apiClient.org.create(
       {
         ...baseOrgPayload(settings),
         permissions: JSON.stringify({ cache: { user_acl_ttl: 2400, user_acl_refresh_gap_ttl: 1200 } }),
@@ -104,14 +104,14 @@ test.describe('Organizations /api/org/create validation', () => {
   test('duplicate org_name -> 400', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
     const name = 'duplicate-org-test-fixed';
-    await apiClient.createOrg({ ...baseOrgPayload(settings), org_name: name }, token);
-    const response = await apiClient.createOrg({ ...baseOrgPayload(settings), org_name: name }, token);
+    await apiClient.org.create({ ...baseOrgPayload(settings), org_name: name }, token);
+    const response = await apiClient.org.create({ ...baseOrgPayload(settings), org_name: name }, token);
     expect(response.status()).toBe(400);
   });
 
   test('org_description > 150 chars -> 422', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg({ ...baseOrgPayload(settings), org_description: 'x'.repeat(151) }, token);
+    const response = await apiClient.org.create({ ...baseOrgPayload(settings), org_description: 'x'.repeat(151) }, token);
     expect(response.status()).toBe(422);
     const body = (await response.json()) as Record<string, unknown>;
     expect(JSON.stringify(body).toLowerCase()).toContain('150');
@@ -119,25 +119,25 @@ test.describe('Organizations /api/org/create validation', () => {
 
   test('org_description exactly 150 chars -> 200', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg({ ...baseOrgPayload(settings), org_description: 'x'.repeat(150) }, token);
+    const response = await apiClient.org.create({ ...baseOrgPayload(settings), org_description: 'x'.repeat(150) }, token);
     expect(response.status()).toBe(200);
   });
 
   test('invalid admin_email -> 422', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg({ ...baseOrgPayload(settings), admin_email: 'not-an-email' }, token);
+    const response = await apiClient.org.create({ ...baseOrgPayload(settings), admin_email: 'not-an-email' }, token);
     expect(response.status()).toBe(422);
   });
 
   test('invalid org_color -> 400/422', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg({ ...baseOrgPayload(settings), org_color: 'neon_rainbow' }, token);
+    const response = await apiClient.org.create({ ...baseOrgPayload(settings), org_color: 'neon_rainbow' }, token);
     expect([400, 422]).toContain(response.status());
   });
 
   test('GIF logo -> 400 invalid format', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg(baseOrgPayload(settings), token, {
+    const response = await apiClient.org.create(baseOrgPayload(settings), token, {
       filename: 'logo.gif',
       buffer: GIF_BYTES,
       contentType: 'image/gif',
@@ -147,7 +147,7 @@ test.describe('Organizations /api/org/create validation', () => {
 
   test('cache user_acl_ttl < 900 -> 422', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg(
+    const response = await apiClient.org.create(
       { ...baseOrgPayload(settings), permissions: JSON.stringify({ cache: { user_acl_ttl: 899 } }) },
       token,
     );
@@ -156,7 +156,7 @@ test.describe('Organizations /api/org/create validation', () => {
 
   test('refresh_gap >= ttl -> 422', async ({ apiClient, settings, authState }) => {
     const token = requireAuthToken(authState);
-    const response = await apiClient.createOrg(
+    const response = await apiClient.org.create(
       { ...baseOrgPayload(settings), permissions: JSON.stringify({ cache: { user_acl_ttl: 1800, user_acl_refresh_gap_ttl: 1800 } }) },
       token,
     );
@@ -183,7 +183,7 @@ test.describe('Organizations /api/org/create authorization', () => {
   });
 
   test('invalid token -> 401', async ({ apiClient, settings }) => {
-    const response = await apiClient.createOrg(baseOrgPayload(settings), 'invalid.token.here');
+    const response = await apiClient.org.create(baseOrgPayload(settings), 'invalid.token.here');
     expect(response.status()).toBe(401);
   });
 });
