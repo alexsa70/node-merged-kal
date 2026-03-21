@@ -1,4 +1,5 @@
 import dotenv from 'dotenv';
+import { getEnvData, EnvData } from './environments';
 
 dotenv.config();
 
@@ -47,6 +48,7 @@ function readCreds(prefix: string): AuthCredentials | undefined {
 export type AppSettings = {
   profile: string;
   environment: string;
+  envData: EnvData;
   apiHttpClient: {
     url: string;
     timeoutMs: number;
@@ -70,10 +72,14 @@ export type AppSettings = {
   };
 };
 
+export type { EnvData };
+
 export function getSettings(): AppSettings {
+  const environment = env('ENVIRONMENT') ?? 'qa';
   return {
     profile: env('PROFILE') ?? 'api',
-    environment: env('ENVIRONMENT') ?? 'local',
+    environment,
+    envData: getEnvData(environment),
     apiHttpClient: {
       url: env('API_HTTP_CLIENT.URL') ?? 'https://api.example.com',
       timeoutMs: envNumber('API_HTTP_CLIENT.TIMEOUT', 30) * 1000,

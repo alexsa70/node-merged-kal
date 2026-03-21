@@ -1,0 +1,50 @@
+<testsuites id="" name="" tests="10" failures="0" skipped="10" errors="0" time="0.06140899999999999">
+<testsuite name="visual/assist-page.spec.ts" timestamp="2026-03-20T10:06:31.391Z" hostname="visual" tests="3" failures="0" skipped="3" time="0" errors="0">
+<testcase name="Assist page visual › assist page full @smoke" classname="visual/assist-page.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Assist page visual › assist page - sidebar element" classname="visual/assist-page.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Assist page visual › assist page - main content area" classname="visual/assist-page.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="visual/login.spec.ts" timestamp="2026-03-20T10:06:31.391Z" hostname="visual" tests="3" failures="0" skipped="3" time="0" errors="0">
+<testcase name="Login page visual › login page default state @smoke" classname="visual/login.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login page visual › login page - password field masked" classname="visual/login.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Login page visual › login page - filled form state" classname="visual/login.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="visual/settings-page.spec.ts" timestamp="2026-03-20T10:06:31.391Z" hostname="visual" tests="2" failures="0" skipped="2" time="0" errors="0">
+<testcase name="Settings page visual › settings page full @smoke" classname="visual/settings-page.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Settings page visual › settings page - user profile section" classname="visual/settings-page.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="visual/sidebar.spec.ts" timestamp="2026-03-20T10:06:31.391Z" hostname="visual" tests="2" failures="0" skipped="2" time="0" errors="0">
+<testcase name="Sidebar visual › sidebar - regular user @smoke" classname="visual/sidebar.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="Sidebar visual › sidebar - collapsed state" classname="visual/sidebar.spec.ts" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

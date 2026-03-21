@@ -1,0 +1,285 @@
+name: Playwright CI
+
+concurrency:
+  group: ${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches: ['main', 'master', '**']
+  pull_request:
+    branches: ['main', 'master']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target environment'
+        required: true
+        default: 'qa'
+        type: choice
+        options: ['qa', 'prod', 'on_premise', 'it']
+      project:
+        description: 'Playwright project (api | api-e2e | e2e | all)'
+        required: false
+        default: 'api'
+      enable_testmo:
+        description: 'Submit results to Testmo?'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false', 'true']
+
+# ── Shared condition: skip if commit contains skip-ci ─────────────────────────
+env:
+  SKIP_CI_FLAG: ${{ contains(github.event.head_commit.message, 'skip-ci') || contains(github.event.pull_request.title, 'skip-ci') }}
+
+jobs:
+  # ── 1. Lint / Type-check ────────────────────────────────────────────────────
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    if: |
+      !contains(
+        github.event.head_commit.message || github.event.pull_request.title || '',
+        'skip-ci'
+      )
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript type check
+        run: npx tsc --noEmit
+
+  # ── 2. Run Playwright tests ──────────────────────────────────────────────────
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    timeout-minutes: 60
+    if: |
+      !contains(
+        github.event.head_commit.message || github.event.pull_request.title || '',
+        'skip-ci'
+      )
+
+    env:
+      ENVIRONMENT: ${{ github.event.inputs.environment || secrets.ENVIRONMENT || 'qa' }}
+      # ── API URL ──
+      API_HTTP_CLIENT.URL: ${{ secrets.API_HTTP_CLIENT_URL }}
+      API_HTTP_CLIENT.TIMEOUT: '30'
+      # ── Default credentials ──
+      AUTH_CREDENTIALS.EMAIL: ${{ secrets.AUTH_CREDENTIALS_EMAIL }}
+      AUTH_CREDENTIALS.PASSWORD: ${{ secrets.AUTH_CREDENTIALS_PASSWORD }}
+      AUTH_CREDENTIALS.OTP_SECRET: ${{ secrets.AUTH_CREDENTIALS_OTP_SECRET }}
+      # ── Role credentials ──
+      AUTH_CREDENTIALS_SUPER_ADMIN.EMAIL: ${{ secrets.AUTH_CREDENTIALS_SUPER_ADMIN_EMAIL }}
+      AUTH_CREDENTIALS_SUPER_ADMIN.PASSWORD: ${{ secrets.AUTH_CREDENTIALS_SUPER_ADMIN_PASSWORD }}
+      AUTH_CREDENTIALS_ADMIN.EMAIL: ${{ secrets.AUTH_CREDENTIALS_ADMIN_EMAIL }}
+      AUTH_CREDENTIALS_ADMIN.PASSWORD: ${{ secrets.AUTH_CREDENTIALS_ADMIN_PASSWORD }}
+      AUTH_CREDENTIALS_USER.EMAIL: ${{ secrets.AUTH_CREDENTIALS_USER_EMAIL }}
+      AUTH_CREDENTIALS_USER.PASSWORD: ${{ secrets.AUTH_CREDENTIALS_USER_PASSWORD }}
+      # ── QA env ──
+      QA_API_URL: ${{ secrets.QA_API_URL }}
+      QA_ORG_NAME: ${{ secrets.QA_ORG_NAME }}
+      QA_ORG_ID: ${{ secrets.QA_ORG_ID }}
+      QA_ADMIN_ID: ${{ secrets.QA_ADMIN_ID }}
+      QA_ADMIN_EMAIL: ${{ secrets.QA_ADMIN_EMAIL }}
+      QA_REGULAR_ID: ${{ secrets.QA_REGULAR_ID }}
+      QA_REGULAR_EMAIL: ${{ secrets.QA_REGULAR_EMAIL }}
+      ORG_NAME: ${{ secrets.QA_ORG_NAME }}
+      # ── Prod env ──
+      PROD_API_URL: ${{ secrets.PROD_API_URL }}
+      PROD_ORG_ID: ${{ secrets.PROD_ORG_ID }}
+      PROD_ADMIN_EMAIL: ${{ secrets.PROD_ADMIN_EMAIL }}
+      PROD_ADMIN_ID: ${{ secrets.PROD_ADMIN_ID }}
+      PROD_REGULAR_EMAIL: ${{ secrets.PROD_REGULAR_EMAIL }}
+      PROD_REGULAR_ID: ${{ secrets.PROD_REGULAR_ID }}
+      # ── On-Prem env ──
+      ONPREM_API_URL: ${{ secrets.ONPREM_API_URL }}
+      ONPREM_ORG_ID: ${{ secrets.ONPREM_ORG_ID }}
+      ONPREM_ADMIN_EMAIL: ${{ secrets.ONPREM_ADMIN_EMAIL }}
+      ONPREM_ADMIN_ID: ${{ secrets.ONPREM_ADMIN_ID }}
+      ONPREM_REGULAR_EMAIL: ${{ secrets.ONPREM_REGULAR_EMAIL }}
+      ONPREM_REGULAR_ID: ${{ secrets.ONPREM_REGULAR_ID }}
+      # ── GCS ──
+      GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
+      GCLOUD_PROJECT_ID: ${{ secrets.GCLOUD_PROJECT_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Install Allure CLI
+        run: |
+          curl -o allure.tgz -L https://github.com/allure-framework/allure2/releases/download/2.33.0/allure-2.33.0.tgz
+          tar -zxf allure.tgz
+          sudo mv allure-2.33.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+
+      - name: Install Google Cloud CLI
+        if: env.GCS_BUCKET_NAME != ''
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y apt-transport-https ca-certificates gnupg
+          echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" \
+            | sudo tee /etc/apt/sources.list.d/google-cloud-sdk.list
+          curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+            | sudo gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg
+          sudo apt-get update -qq && sudo apt-get install -y google-cloud-cli
+
+      - name: Authenticate Google Cloud
+        if: env.GCS_BUCKET_NAME != ''
+        run: |
+          echo '${{ secrets.GCS_SERVICE_ACCOUNT_JSON }}' | gcloud auth activate-service-account --key-file=-
+          gcloud config set project ${{ secrets.GCLOUD_PROJECT_ID }}
+
+      - name: Download Allure history from GCS
+        if: env.GCS_BUCKET_NAME != ''
+        run: |
+          mkdir -p allure-results/history
+          gsutil -m cp -r gs://${{ secrets.GCS_BUCKET_NAME }}/node/allure-report/history/* allure-results/history/ || true
+
+      - name: Write Allure executor info
+        run: |
+          mkdir -p allure-results
+          cat <<EOF > allure-results/executor.json
+          {
+            "name": "GitHub Actions",
+            "type": "ci",
+            "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+            "buildName": "Run #${{ github.run_number }}",
+            "buildUrl": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
+          EOF
+
+      - name: Resolve Playwright project flag
+        id: flags
+        run: |
+          PROJECT="${{ github.event.inputs.project || 'api' }}"
+          COMMIT_MSG="${{ github.event.head_commit.message }}"
+
+          # Extract --project= from commit message
+          COMMIT_PROJECT=$(echo "$COMMIT_MSG" | grep -oE -- '--project=[^ ]+' | head -1 || true)
+          [[ -n "$COMMIT_PROJECT" ]] && PROJECT="${COMMIT_PROJECT#--project=}"
+
+          if [[ "$PROJECT" == "all" ]]; then
+            echo "project_flag=" >> $GITHUB_OUTPUT
+          else
+            echo "project_flag=--project=$PROJECT" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run API tests
+        if: "!contains(github.event.head_commit.message, 'skip-api')"
+        run: npx playwright test --project=api
+        continue-on-error: true
+
+      - name: Run E2E tests
+        if: "!contains(github.event.head_commit.message, 'skip-ui') && !contains(github.event.head_commit.message, 'skip-e2e')"
+        run: npx playwright test --project=e2e
+        continue-on-error: true
+
+      - name: Run Visual tests
+        if: "!contains(github.event.head_commit.message, 'skip-visual')"
+        run: npx playwright test --project=visual
+        continue-on-error: true
+
+      - name: Update visual snapshots (when --update-snapshots in commit)
+        if: contains(github.event.head_commit.message, '--update-snapshots')
+        run: |
+          npx playwright test --project=visual --update-snapshots
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add tests/visual/snapshots
+          git diff --staged --quiet || git commit -m "chore: update visual snapshots [skip-ci]"
+          git push
+
+      - name: Write environment.properties
+        if: always()
+        run: |
+          GIT_BRANCH="${{ github.ref_name }}"
+          GIT_COMMIT="${{ github.sha }}"
+          ENVIRONMENT="${{ github.event.inputs.environment || 'qa' }}"
+          cat > allure-results/environment.properties <<EOF
+          ENVIRONMENT=$ENVIRONMENT
+          BRANCH=$GIT_BRANCH
+          COMMIT_ID=$GIT_COMMIT
+          RUN_NUMBER=${{ github.run_number }}
+          EOF
+
+      - name: Generate Allure report
+        if: always()
+        run: allure generate allure-results -o allure-report --clean
+
+      - name: Upload Allure report to GCS
+        if: always() && env.GCS_BUCKET_NAME != ''
+        run: gsutil -m rsync -r allure-report/ gs://${{ secrets.GCS_BUCKET_NAME }}/node/allure-report
+
+      - name: Upload test results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-results-${{ github.run_number }}
+          path: playwright-results.xml
+          retention-days: 7
+
+      - name: Upload Allure results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ github.run_number }}
+          path: allure-results/
+          retention-days: 7
+
+      - name: Publish JUnit report
+        if: always()
+        uses: mikepenz/action-junit-report@v4
+        with:
+          report_paths: playwright-results.xml
+          fail_on_failure: false
+
+  # ── 3. Testmo ───────────────────────────────────────────────────────────────
+  testmo:
+    name: Submit to Testmo
+    runs-on: ubuntu-latest
+    needs: test
+    if: |
+      github.event.inputs.enable_testmo == 'true' ||
+      contains(github.event.head_commit.message, '--testmo')
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download test results
+        uses: actions/download-artifact@v4
+        with:
+          name: playwright-results-${{ github.run_number }}
+
+      - name: Install Testmo CLI
+        run: npm install -g @testmo/testmo-cli
+
+      - name: Submit to Testmo
+        env:
+          TESTMO_TOKEN: ${{ secrets.TESTMO_API_KEY }}
+        run: |
+          testmo automation:run:submit \
+            --instance "https://kaleidoo.testmo.net" \
+            --project-id 1 \
+            --name "CI Run #${{ github.run_number }} | ${{ github.event.inputs.environment || 'qa' }}" \
+            --source "playwright" \
+            --results playwright-results.xml

@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 import { getSettings } from './src/config/settings';
 
 const settings = getSettings();
@@ -34,12 +34,34 @@ export default defineConfig({
   fullyParallel: true,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 2 : undefined,
-  reporter: [['list'], ['html', { open: 'never' }], ['allure-playwright']],
+  reporter: [
+    ['list'],
+    ['html', { open: 'never' }],
+    ['allure-playwright'],
+    ['junit', { outputFile: 'playwright-results.xml' }],
+  ],
   globalSetup: shouldRunApiGlobalSetup() ? './global-setup.ts' : undefined,
+
   use: {
     trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
   },
+
+  // ── Screenshot comparison defaults (used by toHaveScreenshot) ────────────
+  expect: {
+    toHaveScreenshot: {
+      threshold: 0.1,            // per-pixel color diff tolerance (0–1)
+      maxDiffPixelRatio: 0.01,   // up to 1% of pixels may differ
+      animations: 'disabled',    // freeze CSS animations for stable shots
+    },
+  },
+
+  // ── Snapshot path: tests/visual/snapshots/{testFile}/{platform}/{name} ───
+  snapshotPathTemplate: '{testDir}/visual/snapshots/{testFilePath}/{platform}/{arg}{ext}',
+
   projects: [
+    // ── API tests ──────────────────────────────────────────────────────────
     {
       name: 'api',
       testMatch: /tests\/api\/.*\.spec\.ts/,
@@ -49,6 +71,8 @@ export default defineConfig({
         ignoreHTTPSErrors: true,
       },
     },
+
+    // ── API E2E (authenticated flows via API) ─────────────────────────────
     {
       name: 'api-e2e',
       testMatch: /tests\/api\/e2e\/.*\.spec\.ts/,
@@ -57,6 +81,8 @@ export default defineConfig({
         ignoreHTTPSErrors: true,
       },
     },
+
+    // ── Browser E2E ────────────────────────────────────────────────────────
     {
       name: 'e2e',
       testMatch: /tests\/e2e\/.*\.spec\.ts/,
@@ -68,6 +94,25 @@ export default defineConfig({
         launchOptions: {
           slowMo: settings.e2e.slowMoMs,
         },
+      },
+    },
+
+    // ── Visual regression ──────────────────────────────────────────────────
+    {
+      name: 'visual',
+      testMatch: /tests\/visual\/.*\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+        baseURL: settings.e2e.baseUrl,
+        ignoreHTTPSErrors: true,
+        headless: true,
+        viewport: { width: 1920, height: 1080 },
+        // Stable environment for screenshots
+        colorScheme: 'light',
+        locale: 'en-US',
+        timezoneId: 'UTC',
+        screenshot: 'only-on-failure',
+        video: 'retain-on-failure',
       },
     },
   ],
