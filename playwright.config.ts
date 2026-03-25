@@ -101,6 +101,7 @@ export default defineConfig({
     {
       name: 'visual',
       testMatch: /tests\/visual\/.*\.spec\.ts/,
+      retries: 1,
       use: {
         ...devices['Desktop Chrome'],
         baseURL: settings.e2e.baseUrl,

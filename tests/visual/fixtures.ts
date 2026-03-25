@@ -1,5 +1,6 @@
 import { test as base, Page } from '@playwright/test';
 import { getSettings, AppSettings } from '../../src/config/settings';
+import { LoginPage } from '../e2e/pages/loginPage';
 
 type VisualFixtures = {
   settings: AppSettings;
@@ -23,24 +24,20 @@ export const test = base.extend<VisualFixtures>({
       throw new Error('E2E_BASE_URL is not configured. Set it in .env');
     }
 
+    await page.goto(baseUrl);
+    await page.waitForLoadState('networkidle');
+
     if (creds) {
-      await page.goto(baseUrl);
-      await page.waitForLoadState('networkidle');
+      const loginPage = new LoginPage(page);
 
-      // Fill login form if credentials are configured
-      const usernameInput = page.locator('input[name="identity"], input[type="email"], input[placeholder*="user" i]').first();
-      const passwordInput = page.locator('input[type="password"]').first();
-      const loginButton = page.locator('button[type="submit"]').first();
-
-      if (await usernameInput.isVisible({ timeout: 5_000 }).catch(() => false)) {
-        await usernameInput.fill(creds.identity);
-        await passwordInput.fill(creds.password);
-        await loginButton.click();
+      if (await loginPage.usernameInput.isVisible({ timeout: 10_000 }).catch(() => false)) {
+        await loginPage.fillForm(creds.identity, creds.password);
+        await loginPage.passwordInput.press('Enter');
+        await page.waitForURL((url) => !url.pathname.includes('login') && url.href !== baseUrl, {
+          timeout: 30_000,
+        });
         await page.waitForLoadState('networkidle');
       }
-    } else {
-      await page.goto(baseUrl);
-      await page.waitForLoadState('networkidle');
     }
 
     await use(page);

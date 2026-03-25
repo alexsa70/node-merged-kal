@@ -1,50 +1,59 @@
-<testsuites id="" name="" tests="10" failures="0" skipped="10" errors="0" time="0.06140899999999999">
-<testsuite name="visual/assist-page.spec.ts" timestamp="2026-03-20T10:06:31.391Z" hostname="visual" tests="3" failures="0" skipped="3" time="0" errors="0">
-<testcase name="Assist page visual › assist page full @smoke" classname="visual/assist-page.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Assist page visual › assist page - sidebar element" classname="visual/assist-page.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Assist page visual › assist page - main content area" classname="visual/assist-page.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-</testsuite>
-<testsuite name="visual/login.spec.ts" timestamp="2026-03-20T10:06:31.391Z" hostname="visual" tests="3" failures="0" skipped="3" time="0" errors="0">
-<testcase name="Login page visual › login page default state @smoke" classname="visual/login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login page visual › login page - password field masked" classname="visual/login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Login page visual › login page - filled form state" classname="visual/login.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-</testsuite>
-<testsuite name="visual/settings-page.spec.ts" timestamp="2026-03-20T10:06:31.391Z" hostname="visual" tests="2" failures="0" skipped="2" time="0" errors="0">
-<testcase name="Settings page visual › settings page full @smoke" classname="visual/settings-page.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Settings page visual › settings page - user profile section" classname="visual/settings-page.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-</testsuite>
-<testsuite name="visual/sidebar.spec.ts" timestamp="2026-03-20T10:06:31.391Z" hostname="visual" tests="2" failures="0" skipped="2" time="0" errors="0">
-<testcase name="Sidebar visual › sidebar - regular user @smoke" classname="visual/sidebar.spec.ts" time="0">
-<skipped>
-</skipped>
-</testcase>
-<testcase name="Sidebar visual › sidebar - collapsed state" classname="visual/sidebar.spec.ts" time="0">
-<skipped>
-</skipped>
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="62.804987000000004">
+<testsuite name="e2e/specs/collectionsPage.spec.ts" timestamp="2026-03-24T16:21:34.284Z" hostname="e2e" tests="1" failures="1" skipped="0" time="60.144" errors="0">
+<testcase name="E2E collections page › create/validate/delete collection" classname="e2e/specs/collectionsPage.spec.ts" time="60.144">
+<failure message="collectionsPage.spec.ts:21:7 create/validate/delete collection" type="FAILURE">
+<![CDATA[  [e2e] › e2e/specs/collectionsPage.spec.ts:21:7 › E2E collections page › create/validate/delete collection 
+
+    Test timeout of 60000ms exceeded.
+
+    Error: locator.click: Test timeout of 60000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="sidebar-nav-projects-button"]').first()
+
+
+       at e2e/pages/sidebarPage.ts:19
+
+      17 |
+      18 |   private async click(selector: string): Promise<void> {
+    > 19 |     await this.page.locator(selector).first().click();
+         |                                               ^
+      20 |   }
+      21 |
+      22 |   async expectAdminSectionVisible(visible: boolean): Promise<void> {
+        at SidebarPage.click (/Users/alexanderle/workspace/node-merged-kal/tests/e2e/pages/sidebarPage.ts:19:47)
+        at SidebarPage.navigateToCollections (/Users/alexanderle/workspace/node-merged-kal/tests/e2e/pages/sidebarPage.ts:36:16)
+        at /Users/alexanderle/workspace/node-merged-kal/tests/e2e/specs/collectionsPage.spec.ts:25:23
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ../test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ../test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ../test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/trace.zip
+    Usage:
+
+        npx playwright show-trace ../test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/test-failed-1.png]]
+
+[[ATTACHMENT|test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/video.webm]]
+
+[[ATTACHMENT|test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/error-context.md]]
+
+[[ATTACHMENT|test-results/e2e-specs-collectionsPage--d0c67--validate-delete-collection-e2e/trace.zip]]
+]]>
+</system-out>
 </testcase>
 </testsuite>
 </testsuites>

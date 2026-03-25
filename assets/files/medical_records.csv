@@ -1,0 +1,551 @@
+Patient ID,Age,Gender,Department,Diagnosis,Medication,Treatment Duration (Days),Recovery Status
+P1001,52,Male,Cardiology,COVID-19,Ibuprofen,29,Recovered
+P1002,15,Male,Neurology,COVID-19,Aspirin,11,Critical
+P1003,72,Male,Emergency,Fracture,Aspirin,29,Recovered
+P1004,21,Male,Neurology,Diabetes,Amoxicillin,7,Critical
+P1005,83,Male,Emergency,Diabetes,Paracetamol,23,Critical
+P1006,75,Female,Neurology,Fracture,Amoxicillin,11,Under Treatment
+P1007,88,Male,Neurology,COVID-19,Insulin,21,Under Treatment
+P1008,24,Female,Neurology,Diabetes,Ibuprofen,3,Recovered
+P1009,22,Male,Pediatrics,Hypertension,Ibuprofen,21,Under Treatment
+P1010,2,Female,Cardiology,COVID-19,Insulin,24,Critical
+P1011,30,Male,Pediatrics,Hypertension,Amoxicillin,6,Under Treatment
+P1012,2,Female,Emergency,Diabetes,Paracetamol,28,Recovered
+P1013,21,Male,Radiology,Diabetes,Ibuprofen,1,Recovered
+P1014,76,Male,Cardiology,Fracture,Ibuprofen,26,Under Treatment
+P1015,22,Female,Neurology,Migraine,Ibuprofen,29,Recovered
+P1016,89,Female,Radiology,COVID-19,Paracetamol,17,Recovered
+P1017,91,Male,Emergency,COVID-19,Metformin,27,Recovered
+P1018,42,Female,Pediatrics,Migraine,Paracetamol,28,Critical
+P1019,60,Male,Radiology,Migraine,Aspirin,16,Recovered
+P1020,15,Male,Oncology,Fracture,Ibuprofen,15,Recovered
+P1021,62,Male,Emergency,COVID-19,Ibuprofen,19,Recovered
+P1022,55,Female,Pediatrics,COVID-19,Insulin,20,Recovered
+P1023,64,Female,Neurology,Diabetes,Paracetamol,25,Critical
+P1024,3,Female,Radiology,Asthma,Insulin,5,Critical
+P1025,51,Female,Oncology,Diabetes,Metformin,7,Critical
+P1026,21,Female,Cardiology,Cancer,Aspirin,9,Recovered
+P1027,39,Male,Radiology,Diabetes,Paracetamol,18,Under Treatment
+P1028,4,Male,Pediatrics,Fracture,Amoxicillin,25,Under Treatment
+P1029,60,Female,Emergency,Cancer,Aspirin,14,Critical
+P1030,9,Male,Radiology,Asthma,Ibuprofen,26,Critical
+P1031,53,Female,Cardiology,Migraine,Insulin,2,Recovered
+P1032,84,Female,Cardiology,COVID-19,Paracetamol,28,Under Treatment
+P1033,60,Male,Emergency,Hypertension,Paracetamol,7,Under Treatment
+P1034,44,Male,Neurology,Migraine,Metformin,29,Critical
+P1035,8,Male,Emergency,Migraine,Insulin,15,Recovered
+P1036,35,Male,Oncology,Cancer,Ibuprofen,14,Recovered
+P1037,81,Male,Neurology,Asthma,Aspirin,4,Recovered
+P1038,50,Female,Cardiology,Cancer,Amoxicillin,8,Recovered
+P1039,4,Male,Radiology,Fracture,Amoxicillin,2,Recovered
+P1040,6,Female,Emergency,Cancer,Amoxicillin,22,Under Treatment
+P1041,4,Male,Emergency,Cancer,Paracetamol,22,Critical
+P1042,93,Male,Radiology,Migraine,Insulin,18,Critical
+P1043,90,Female,Pediatrics,Asthma,Insulin,12,Recovered
+P1044,34,Male,Neurology,Hypertension,Ibuprofen,10,Recovered
+P1045,62,Male,Emergency,Diabetes,Aspirin,4,Recovered
+P1046,14,Male,Neurology,Hypertension,Aspirin,16,Under Treatment
+P1047,15,Male,Emergency,Diabetes,Ibuprofen,8,Critical
+P1048,78,Female,Neurology,Asthma,Metformin,23,Critical
+P1049,62,Female,Neurology,Cancer,Insulin,8,Under Treatment
+P1050,85,Male,Cardiology,Hypertension,Paracetamol,16,Under Treatment
+P1051,82,Female,Pediatrics,Fracture,Insulin,15,Critical
+P1052,53,Male,Radiology,COVID-19,Paracetamol,24,Recovered
+P1053,26,Male,Pediatrics,COVID-19,Ibuprofen,25,Recovered
+P1054,60,Male,Neurology,Diabetes,Amoxicillin,28,Under Treatment
+P1055,41,Male,Pediatrics,Diabetes,Ibuprofen,29,Under Treatment
+P1056,15,Male,Cardiology,Fracture,Amoxicillin,13,Recovered
+P1057,65,Male,Radiology,Asthma,Aspirin,25,Recovered
+P1058,71,Male,Neurology,Fracture,Insulin,9,Under Treatment
+P1059,88,Male,Pediatrics,Hypertension,Metformin,1,Under Treatment
+P1060,8,Male,Pediatrics,Migraine,Insulin,24,Under Treatment
+P1061,63,Female,Radiology,COVID-19,Amoxicillin,11,Critical
+P1062,81,Female,Neurology,Diabetes,Ibuprofen,8,Recovered
+P1063,35,Male,Emergency,COVID-19,Amoxicillin,3,Recovered
+P1064,33,Female,Cardiology,Hypertension,Amoxicillin,27,Under Treatment
+P1065,5,Male,Cardiology,Asthma,Aspirin,10,Recovered
+P1066,41,Male,Emergency,Hypertension,Paracetamol,28,Recovered
+P1067,7,Female,Cardiology,Asthma,Metformin,9,Critical
+P1068,72,Male,Emergency,Hypertension,Insulin,12,Critical
+P1069,34,Female,Oncology,Diabetes,Paracetamol,1,Critical
+P1070,48,Female,Neurology,Migraine,Insulin,23,Recovered
+P1071,23,Female,Pediatrics,Migraine,Aspirin,24,Recovered
+P1072,37,Female,Emergency,Asthma,Aspirin,3,Recovered
+P1073,44,Male,Emergency,Migraine,Metformin,8,Under Treatment
+P1074,86,Male,Neurology,Migraine,Ibuprofen,27,Recovered
+P1075,35,Female,Emergency,COVID-19,Ibuprofen,1,Critical
+P1076,99,Male,Radiology,Cancer,Amoxicillin,5,Under Treatment
+P1077,47,Male,Neurology,Migraine,Aspirin,14,Recovered
+P1078,3,Male,Oncology,Migraine,Amoxicillin,1,Recovered
+P1079,5,Female,Neurology,COVID-19,Paracetamol,26,Under Treatment
+P1080,14,Female,Oncology,Cancer,Aspirin,7,Recovered
+P1081,27,Female,Oncology,Hypertension,Aspirin,9,Under Treatment
+P1082,79,Male,Radiology,Migraine,Metformin,15,Critical
+P1083,90,Female,Emergency,COVID-19,Insulin,10,Critical
+P1084,77,Male,Cardiology,Hypertension,Paracetamol,19,Recovered
+P1085,63,Male,Oncology,Asthma,Amoxicillin,7,Recovered
+P1086,52,Female,Neurology,Hypertension,Ibuprofen,29,Under Treatment
+P1087,96,Male,Oncology,Diabetes,Paracetamol,4,Recovered
+P1088,94,Male,Oncology,Cancer,Amoxicillin,5,Under Treatment
+P1089,23,Male,Neurology,Cancer,Metformin,7,Recovered
+P1090,15,Female,Cardiology,Diabetes,Paracetamol,11,Under Treatment
+P1091,29,Female,Radiology,Cancer,Paracetamol,4,Recovered
+P1092,13,Female,Neurology,Cancer,Paracetamol,7,Recovered
+P1093,59,Female,Cardiology,Cancer,Insulin,19,Recovered
+P1094,86,Male,Pediatrics,Migraine,Ibuprofen,28,Recovered
+P1095,66,Male,Cardiology,COVID-19,Metformin,10,Under Treatment
+P1096,45,Female,Oncology,Cancer,Aspirin,25,Under Treatment
+P1097,6,Female,Radiology,Asthma,Insulin,28,Critical
+P1098,28,Female,Cardiology,Hypertension,Ibuprofen,12,Recovered
+P1099,44,Female,Cardiology,Hypertension,Amoxicillin,20,Under Treatment
+P1100,30,Female,Radiology,Cancer,Ibuprofen,11,Under Treatment
+P1101,92,Male,Pediatrics,Asthma,Metformin,25,Under Treatment
+P1102,62,Male,Radiology,Fracture,Aspirin,1,Critical
+P1103,1,Male,Oncology,Fracture,Aspirin,25,Critical
+P1104,27,Female,Emergency,Migraine,Paracetamol,25,Recovered
+P1105,77,Female,Emergency,Migraine,Paracetamol,9,Under Treatment
+P1106,3,Female,Pediatrics,COVID-19,Ibuprofen,7,Critical
+P1107,70,Male,Neurology,Fracture,Paracetamol,8,Under Treatment
+P1108,27,Male,Emergency,Asthma,Ibuprofen,9,Under Treatment
+P1109,62,Male,Oncology,Migraine,Metformin,5,Under Treatment
+P1110,97,Female,Pediatrics,Fracture,Insulin,19,Critical
+P1111,44,Male,Emergency,Fracture,Paracetamol,24,Recovered
+P1112,79,Male,Oncology,Asthma,Paracetamol,27,Critical
+P1113,32,Female,Cardiology,Cancer,Metformin,24,Critical
+P1114,52,Female,Neurology,Cancer,Metformin,17,Recovered
+P1115,62,Male,Cardiology,Diabetes,Insulin,17,Critical
+P1116,58,Male,Pediatrics,Fracture,Paracetamol,20,Critical
+P1117,12,Male,Radiology,COVID-19,Insulin,7,Under Treatment
+P1118,2,Female,Neurology,Diabetes,Paracetamol,3,Critical
+P1119,56,Male,Cardiology,Cancer,Insulin,17,Recovered
+P1120,59,Male,Radiology,Asthma,Insulin,17,Recovered
+P1121,2,Male,Cardiology,Fracture,Metformin,2,Under Treatment
+P1122,92,Female,Pediatrics,Asthma,Paracetamol,22,Critical
+P1123,87,Female,Emergency,Fracture,Metformin,5,Critical
+P1124,96,Female,Pediatrics,Migraine,Metformin,1,Critical
+P1125,1,Female,Emergency,Fracture,Paracetamol,19,Recovered
+P1126,2,Female,Pediatrics,Hypertension,Paracetamol,21,Under Treatment
+P1127,44,Male,Oncology,Migraine,Ibuprofen,26,Critical
+P1128,32,Male,Neurology,Diabetes,Metformin,6,Under Treatment
+P1129,32,Male,Radiology,Diabetes,Aspirin,23,Under Treatment
+P1130,68,Female,Oncology,Asthma,Insulin,23,Under Treatment
+P1131,75,Male,Neurology,Cancer,Insulin,24,Under Treatment
+P1132,17,Male,Emergency,Fracture,Insulin,6,Recovered
+P1133,24,Female,Oncology,Cancer,Insulin,5,Under Treatment
+P1134,98,Male,Pediatrics,Diabetes,Ibuprofen,6,Under Treatment
+P1135,86,Female,Cardiology,Fracture,Ibuprofen,11,Critical
+P1136,16,Female,Radiology,Diabetes,Insulin,1,Recovered
+P1137,73,Male,Pediatrics,Asthma,Amoxicillin,28,Critical
+P1138,59,Male,Cardiology,COVID-19,Insulin,6,Recovered
+P1139,80,Female,Neurology,Hypertension,Ibuprofen,29,Under Treatment
+P1140,3,Female,Neurology,Fracture,Ibuprofen,20,Under Treatment
+P1141,59,Female,Oncology,Cancer,Insulin,4,Under Treatment
+P1142,19,Male,Pediatrics,Hypertension,Paracetamol,26,Critical
+P1143,67,Male,Oncology,Diabetes,Paracetamol,19,Recovered
+P1144,20,Male,Cardiology,Diabetes,Metformin,7,Recovered
+P1145,52,Male,Neurology,Diabetes,Insulin,9,Critical
+P1146,33,Male,Emergency,Diabetes,Insulin,8,Critical
+P1147,39,Female,Oncology,Diabetes,Amoxicillin,18,Critical
+P1148,1,Male,Neurology,Migraine,Aspirin,11,Critical
+P1149,92,Male,Oncology,Asthma,Paracetamol,25,Under Treatment
+P1150,89,Female,Radiology,Diabetes,Aspirin,18,Critical
+P1151,23,Male,Cardiology,COVID-19,Ibuprofen,10,Critical
+P1152,99,Male,Emergency,Cancer,Aspirin,7,Under Treatment
+P1153,16,Female,Radiology,Migraine,Aspirin,26,Critical
+P1154,60,Female,Cardiology,Cancer,Insulin,17,Under Treatment
+P1155,2,Male,Pediatrics,Migraine,Paracetamol,1,Under Treatment
+P1156,48,Male,Pediatrics,Diabetes,Paracetamol,12,Critical
+P1157,69,Female,Emergency,Cancer,Amoxicillin,5,Under Treatment
+P1158,32,Female,Pediatrics,Cancer,Paracetamol,27,Critical
+P1159,9,Female,Oncology,Cancer,Metformin,9,Recovered
+P1160,99,Female,Pediatrics,Diabetes,Insulin,19,Critical
+P1161,48,Female,Oncology,Hypertension,Insulin,16,Under Treatment
+P1162,3,Male,Pediatrics,Diabetes,Ibuprofen,20,Under Treatment
+P1163,24,Female,Oncology,Asthma,Paracetamol,22,Under Treatment
+P1164,33,Male,Emergency,Diabetes,Aspirin,24,Recovered
+P1165,75,Female,Pediatrics,Asthma,Metformin,17,Critical
+P1166,72,Female,Radiology,COVID-19,Insulin,4,Under Treatment
+P1167,38,Male,Cardiology,Migraine,Metformin,8,Under Treatment
+P1168,84,Male,Oncology,COVID-19,Amoxicillin,3,Under Treatment
+P1169,89,Female,Emergency,Asthma,Ibuprofen,3,Under Treatment
+P1170,25,Female,Oncology,COVID-19,Insulin,29,Under Treatment
+P1171,18,Female,Oncology,Diabetes,Aspirin,14,Critical
+P1172,82,Male,Oncology,Hypertension,Paracetamol,2,Critical
+P1173,54,Male,Neurology,Diabetes,Paracetamol,3,Under Treatment
+P1174,80,Female,Radiology,Asthma,Amoxicillin,29,Critical
+P1175,41,Female,Cardiology,Cancer,Metformin,4,Under Treatment
+P1176,33,Male,Oncology,Diabetes,Ibuprofen,4,Recovered
+P1177,33,Male,Oncology,Hypertension,Aspirin,14,Critical
+P1178,21,Female,Radiology,Diabetes,Paracetamol,16,Under Treatment
+P1179,20,Male,Cardiology,Asthma,Ibuprofen,24,Under Treatment
+P1180,8,Female,Pediatrics,Migraine,Metformin,7,Recovered
+P1181,67,Female,Pediatrics,Hypertension,Aspirin,17,Under Treatment
+P1182,33,Female,Cardiology,Asthma,Paracetamol,16,Critical
+P1183,76,Male,Neurology,Diabetes,Amoxicillin,27,Under Treatment
+P1184,86,Male,Neurology,Hypertension,Amoxicillin,23,Under Treatment
+P1185,22,Male,Emergency,Fracture,Insulin,14,Under Treatment
+P1186,30,Female,Emergency,Fracture,Ibuprofen,6,Critical
+P1187,51,Male,Emergency,COVID-19,Aspirin,22,Recovered
+P1188,8,Male,Oncology,COVID-19,Aspirin,27,Recovered
+P1189,27,Male,Neurology,Asthma,Aspirin,2,Recovered
+P1190,21,Male,Pediatrics,Fracture,Paracetamol,1,Critical
+P1191,28,Female,Oncology,Hypertension,Metformin,15,Under Treatment
+P1192,64,Female,Radiology,Cancer,Insulin,1,Recovered
+P1193,69,Male,Oncology,Cancer,Paracetamol,28,Critical
+P1194,61,Male,Pediatrics,Hypertension,Amoxicillin,16,Recovered
+P1195,19,Male,Oncology,Cancer,Metformin,4,Recovered
+P1196,35,Male,Neurology,Cancer,Ibuprofen,17,Critical
+P1197,17,Female,Pediatrics,Hypertension,Insulin,12,Critical
+P1198,92,Female,Radiology,Fracture,Ibuprofen,29,Critical
+P1199,46,Female,Pediatrics,Hypertension,Amoxicillin,21,Recovered
+P1200,6,Female,Radiology,Migraine,Amoxicillin,3,Under Treatment
+P1201,37,Male,Cardiology,Diabetes,Paracetamol,24,Critical
+P1202,93,Male,Radiology,Cancer,Ibuprofen,17,Critical
+P1203,46,Male,Neurology,Fracture,Amoxicillin,21,Critical
+P1204,95,Female,Oncology,Diabetes,Amoxicillin,3,Under Treatment
+P1205,60,Female,Cardiology,Fracture,Ibuprofen,1,Under Treatment
+P1206,63,Female,Oncology,COVID-19,Aspirin,29,Recovered
+P1207,85,Female,Pediatrics,COVID-19,Insulin,23,Under Treatment
+P1208,33,Female,Emergency,Hypertension,Insulin,3,Recovered
+P1209,18,Female,Oncology,Migraine,Aspirin,25,Under Treatment
+P1210,95,Male,Radiology,Cancer,Amoxicillin,22,Under Treatment
+P1211,58,Female,Cardiology,Diabetes,Amoxicillin,3,Under Treatment
+P1212,46,Female,Radiology,Fracture,Aspirin,24,Recovered
+P1213,32,Female,Emergency,Diabetes,Ibuprofen,15,Under Treatment
+P1214,86,Female,Cardiology,Hypertension,Paracetamol,23,Critical
+P1215,66,Male,Radiology,Diabetes,Ibuprofen,27,Critical
+P1216,2,Male,Emergency,Fracture,Aspirin,26,Recovered
+P1217,17,Male,Pediatrics,Hypertension,Paracetamol,8,Recovered
+P1218,33,Female,Radiology,Migraine,Amoxicillin,9,Critical
+P1219,43,Female,Pediatrics,Cancer,Insulin,22,Under Treatment
+P1220,48,Male,Pediatrics,Asthma,Metformin,7,Under Treatment
+P1221,93,Male,Emergency,Asthma,Paracetamol,10,Recovered
+P1222,26,Male,Oncology,Cancer,Insulin,3,Under Treatment
+P1223,50,Female,Cardiology,Migraine,Paracetamol,25,Under Treatment
+P1224,24,Female,Neurology,Fracture,Amoxicillin,13,Under Treatment
+P1225,60,Female,Oncology,Asthma,Amoxicillin,26,Under Treatment
+P1226,7,Female,Oncology,Cancer,Metformin,25,Critical
+P1227,36,Male,Emergency,Fracture,Metformin,13,Under Treatment
+P1228,20,Male,Oncology,COVID-19,Insulin,1,Critical
+P1229,8,Female,Pediatrics,COVID-19,Paracetamol,14,Recovered
+P1230,16,Female,Cardiology,Diabetes,Amoxicillin,14,Critical
+P1231,76,Female,Cardiology,Cancer,Insulin,19,Recovered
+P1232,87,Female,Cardiology,COVID-19,Metformin,15,Under Treatment
+P1233,92,Male,Cardiology,Fracture,Ibuprofen,2,Under Treatment
+P1234,66,Female,Radiology,Hypertension,Ibuprofen,23,Critical
+P1235,63,Female,Oncology,COVID-19,Paracetamol,22,Under Treatment
+P1236,51,Male,Emergency,Hypertension,Metformin,25,Critical
+P1237,58,Female,Neurology,COVID-19,Aspirin,29,Under Treatment
+P1238,22,Male,Radiology,COVID-19,Aspirin,26,Under Treatment
+P1239,58,Male,Radiology,Migraine,Aspirin,22,Recovered
+P1240,49,Female,Cardiology,Migraine,Ibuprofen,20,Under Treatment
+P1241,42,Female,Neurology,Diabetes,Amoxicillin,6,Under Treatment
+P1242,15,Male,Neurology,Diabetes,Aspirin,22,Critical
+P1243,60,Female,Emergency,COVID-19,Metformin,5,Under Treatment
+P1244,97,Male,Neurology,Fracture,Paracetamol,8,Under Treatment
+P1245,53,Female,Oncology,COVID-19,Aspirin,28,Under Treatment
+P1246,5,Female,Radiology,Asthma,Metformin,7,Recovered
+P1247,68,Female,Oncology,Asthma,Ibuprofen,6,Critical
+P1248,96,Female,Radiology,Migraine,Insulin,20,Under Treatment
+P1249,94,Male,Pediatrics,Cancer,Insulin,15,Recovered
+P1250,99,Male,Pediatrics,Asthma,Ibuprofen,23,Critical
+P1251,40,Female,Radiology,Migraine,Aspirin,20,Critical
+P1252,16,Female,Oncology,Hypertension,Amoxicillin,13,Critical
+P1253,30,Male,Emergency,COVID-19,Insulin,19,Under Treatment
+P1254,17,Male,Emergency,Cancer,Ibuprofen,24,Recovered
+P1255,63,Male,Emergency,Migraine,Paracetamol,19,Critical
+P1256,92,Male,Radiology,Hypertension,Paracetamol,26,Critical
+P1257,55,Male,Oncology,Cancer,Insulin,26,Recovered
+P1258,90,Female,Radiology,Diabetes,Aspirin,21,Under Treatment
+P1259,62,Female,Radiology,Fracture,Metformin,23,Recovered
+P1260,9,Male,Emergency,Migraine,Amoxicillin,12,Critical
+P1261,1,Female,Neurology,Migraine,Insulin,26,Under Treatment
+P1262,1,Female,Cardiology,Fracture,Aspirin,15,Recovered
+P1263,34,Male,Radiology,COVID-19,Paracetamol,22,Under Treatment
+P1264,48,Female,Cardiology,Cancer,Insulin,25,Recovered
+P1265,1,Female,Emergency,Hypertension,Insulin,16,Under Treatment
+P1266,61,Female,Emergency,Fracture,Paracetamol,7,Under Treatment
+P1267,64,Male,Radiology,Diabetes,Insulin,5,Recovered
+P1268,22,Female,Emergency,Diabetes,Paracetamol,29,Recovered
+P1269,67,Female,Radiology,Migraine,Paracetamol,12,Under Treatment
+P1270,26,Male,Neurology,Hypertension,Aspirin,16,Under Treatment
+P1271,51,Female,Cardiology,Hypertension,Metformin,5,Critical
+P1272,86,Male,Pediatrics,Fracture,Ibuprofen,25,Critical
+P1273,29,Female,Emergency,COVID-19,Paracetamol,14,Recovered
+P1274,92,Female,Radiology,Hypertension,Insulin,5,Critical
+P1275,47,Female,Oncology,Hypertension,Paracetamol,17,Under Treatment
+P1276,94,Male,Pediatrics,Fracture,Metformin,14,Under Treatment
+P1277,62,Male,Radiology,Migraine,Amoxicillin,20,Critical
+P1278,69,Female,Cardiology,Fracture,Ibuprofen,12,Recovered
+P1279,16,Male,Pediatrics,Hypertension,Paracetamol,26,Recovered
+P1280,90,Male,Cardiology,Cancer,Ibuprofen,16,Recovered
+P1281,85,Male,Emergency,Diabetes,Aspirin,7,Critical
+P1282,33,Male,Emergency,Diabetes,Metformin,5,Under Treatment
+P1283,23,Male,Emergency,Hypertension,Ibuprofen,26,Recovered
+P1284,10,Male,Emergency,Migraine,Metformin,22,Recovered
+P1285,69,Male,Neurology,Hypertension,Ibuprofen,4,Recovered
+P1286,34,Female,Cardiology,Diabetes,Ibuprofen,20,Recovered
+P1287,95,Male,Radiology,Fracture,Amoxicillin,10,Recovered
+P1288,19,Male,Pediatrics,Fracture,Ibuprofen,26,Critical
+P1289,96,Male,Pediatrics,Asthma,Metformin,1,Critical
+P1290,69,Male,Radiology,Cancer,Paracetamol,13,Critical
+P1291,4,Female,Pediatrics,COVID-19,Aspirin,16,Recovered
+P1292,24,Female,Pediatrics,Fracture,Paracetamol,16,Recovered
+P1293,2,Female,Radiology,Fracture,Aspirin,17,Recovered
+P1294,92,Female,Emergency,Diabetes,Aspirin,27,Recovered
+P1295,84,Female,Emergency,COVID-19,Amoxicillin,24,Critical
+P1296,12,Female,Pediatrics,Asthma,Amoxicillin,18,Under Treatment
+P1297,35,Female,Emergency,Asthma,Insulin,28,Recovered
+P1298,33,Male,Radiology,COVID-19,Amoxicillin,1,Critical
+P1299,61,Male,Pediatrics,Fracture,Metformin,19,Under Treatment
+P1300,43,Female,Pediatrics,Fracture,Insulin,5,Critical
+P1301,12,Male,Oncology,Fracture,Ibuprofen,3,Critical
+P1302,65,Female,Oncology,Diabetes,Paracetamol,1,Under Treatment
+P1303,40,Male,Cardiology,Cancer,Aspirin,10,Recovered
+P1304,43,Female,Cardiology,COVID-19,Paracetamol,12,Under Treatment
+P1305,29,Male,Emergency,Hypertension,Amoxicillin,13,Critical
+P1306,12,Female,Radiology,Hypertension,Insulin,14,Under Treatment
+P1307,2,Female,Radiology,Hypertension,Ibuprofen,29,Critical
+P1308,35,Female,Oncology,Hypertension,Amoxicillin,23,Critical
+P1309,81,Male,Neurology,COVID-19,Insulin,26,Recovered
+P1310,8,Male,Oncology,Cancer,Amoxicillin,29,Under Treatment
+P1311,26,Male,Oncology,Asthma,Metformin,10,Under Treatment
+P1312,90,Male,Emergency,COVID-19,Paracetamol,2,Under Treatment
+P1313,7,Male,Neurology,Migraine,Paracetamol,4,Under Treatment
+P1314,58,Female,Oncology,Hypertension,Metformin,21,Recovered
+P1315,75,Female,Cardiology,Diabetes,Paracetamol,29,Critical
+P1316,36,Male,Cardiology,COVID-19,Amoxicillin,25,Recovered
+P1317,21,Female,Pediatrics,Fracture,Ibuprofen,29,Recovered
+P1318,36,Female,Oncology,COVID-19,Ibuprofen,10,Critical
+P1319,73,Male,Cardiology,Diabetes,Metformin,24,Critical
+P1320,64,Male,Radiology,Hypertension,Ibuprofen,3,Under Treatment
+P1321,49,Female,Pediatrics,Asthma,Insulin,3,Under Treatment
+P1322,36,Female,Neurology,Cancer,Amoxicillin,18,Recovered
+P1323,96,Female,Pediatrics,Hypertension,Ibuprofen,24,Critical
+P1324,23,Female,Emergency,COVID-19,Ibuprofen,5,Recovered
+P1325,12,Male,Pediatrics,Asthma,Aspirin,17,Recovered
+P1326,55,Male,Oncology,Diabetes,Metformin,13,Under Treatment
+P1327,23,Female,Oncology,Hypertension,Aspirin,25,Under Treatment
+P1328,99,Female,Neurology,Diabetes,Insulin,9,Critical
+P1329,30,Male,Emergency,Asthma,Paracetamol,17,Under Treatment
+P1330,62,Male,Pediatrics,Cancer,Paracetamol,20,Recovered
+P1331,89,Female,Cardiology,Fracture,Aspirin,22,Under Treatment
+P1332,13,Female,Emergency,Fracture,Paracetamol,27,Critical
+P1333,19,Female,Oncology,Hypertension,Insulin,17,Recovered
+P1334,12,Female,Neurology,Cancer,Amoxicillin,29,Under Treatment
+P1335,19,Female,Cardiology,Fracture,Aspirin,12,Recovered
+P1336,9,Female,Emergency,Fracture,Amoxicillin,7,Recovered
+P1337,28,Female,Oncology,COVID-19,Ibuprofen,14,Recovered
+P1338,95,Female,Neurology,Hypertension,Amoxicillin,20,Critical
+P1339,83,Male,Emergency,Asthma,Metformin,26,Under Treatment
+P1340,16,Female,Radiology,Cancer,Paracetamol,21,Recovered
+P1341,69,Male,Cardiology,Diabetes,Ibuprofen,3,Recovered
+P1342,12,Male,Emergency,Diabetes,Paracetamol,25,Recovered
+P1343,52,Male,Radiology,Fracture,Insulin,27,Critical
+P1344,85,Female,Radiology,Asthma,Paracetamol,4,Critical
+P1345,53,Female,Radiology,Migraine,Metformin,23,Under Treatment
+P1346,16,Male,Pediatrics,Fracture,Paracetamol,25,Under Treatment
+P1347,39,Female,Emergency,Hypertension,Ibuprofen,13,Critical
+P1348,53,Male,Oncology,Fracture,Insulin,10,Recovered
+P1349,58,Male,Oncology,Cancer,Ibuprofen,7,Recovered
+P1350,14,Male,Emergency,Asthma,Amoxicillin,26,Under Treatment
+P1351,5,Female,Emergency,Asthma,Paracetamol,3,Recovered
+P1352,87,Female,Emergency,COVID-19,Metformin,29,Under Treatment
+P1353,75,Female,Emergency,Diabetes,Aspirin,18,Under Treatment
+P1354,76,Male,Oncology,COVID-19,Aspirin,9,Critical
+P1355,74,Male,Cardiology,Diabetes,Paracetamol,26,Under Treatment
+P1356,17,Female,Emergency,Asthma,Amoxicillin,29,Recovered
+P1357,7,Female,Oncology,Migraine,Insulin,14,Under Treatment
+P1358,13,Female,Radiology,Asthma,Aspirin,8,Critical
+P1359,42,Female,Cardiology,Migraine,Aspirin,9,Critical
+P1360,50,Female,Oncology,Migraine,Paracetamol,27,Critical
+P1361,66,Male,Oncology,Hypertension,Amoxicillin,5,Critical
+P1362,29,Male,Oncology,Migraine,Paracetamol,5,Critical
+P1363,38,Female,Neurology,Asthma,Paracetamol,19,Recovered
+P1364,8,Female,Emergency,Fracture,Paracetamol,16,Under Treatment
+P1365,65,Male,Radiology,COVID-19,Paracetamol,22,Critical
+P1366,17,Male,Radiology,COVID-19,Insulin,7,Critical
+P1367,89,Female,Cardiology,Migraine,Ibuprofen,13,Recovered
+P1368,4,Male,Oncology,Cancer,Insulin,4,Recovered
+P1369,70,Male,Neurology,Diabetes,Aspirin,28,Under Treatment
+P1370,31,Male,Emergency,Cancer,Amoxicillin,19,Critical
+P1371,61,Male,Radiology,Migraine,Amoxicillin,12,Recovered
+P1372,54,Female,Neurology,Diabetes,Metformin,7,Critical
+P1373,91,Male,Radiology,Fracture,Aspirin,10,Under Treatment
+P1374,90,Female,Radiology,COVID-19,Metformin,19,Under Treatment
+P1375,39,Female,Radiology,Cancer,Insulin,3,Recovered
+P1376,45,Male,Oncology,Cancer,Insulin,13,Recovered
+P1377,92,Female,Radiology,Asthma,Insulin,26,Under Treatment
+P1378,20,Female,Pediatrics,Asthma,Amoxicillin,28,Under Treatment
+P1379,72,Male,Neurology,Cancer,Amoxicillin,29,Recovered
+P1380,39,Female,Cardiology,COVID-19,Insulin,1,Under Treatment
+P1381,3,Male,Radiology,Cancer,Amoxicillin,13,Recovered
+P1382,92,Female,Cardiology,Cancer,Metformin,25,Under Treatment
+P1383,63,Female,Emergency,Diabetes,Insulin,28,Recovered
+P1384,25,Male,Pediatrics,Migraine,Aspirin,24,Under Treatment
+P1385,33,Male,Pediatrics,Asthma,Ibuprofen,6,Recovered
+P1386,6,Female,Cardiology,Migraine,Metformin,26,Recovered
+P1387,44,Female,Cardiology,Cancer,Paracetamol,13,Critical
+P1388,32,Female,Neurology,Diabetes,Aspirin,13,Under Treatment
+P1389,61,Female,Radiology,Cancer,Metformin,15,Critical
+P1390,21,Female,Pediatrics,Asthma,Aspirin,16,Recovered
+P1391,85,Male,Oncology,Diabetes,Metformin,11,Critical
+P1392,36,Female,Cardiology,Cancer,Ibuprofen,3,Recovered
+P1393,19,Female,Cardiology,Hypertension,Metformin,20,Under Treatment
+P1394,57,Female,Cardiology,Hypertension,Insulin,18,Critical
+P1395,47,Male,Radiology,Asthma,Amoxicillin,9,Recovered
+P1396,49,Male,Oncology,Fracture,Aspirin,14,Critical
+P1397,15,Female,Neurology,Asthma,Insulin,1,Recovered
+P1398,54,Male,Emergency,Migraine,Aspirin,22,Critical
+P1399,3,Male,Pediatrics,Cancer,Insulin,16,Recovered
+P1400,87,Female,Oncology,Migraine,Paracetamol,25,Recovered
+P1401,75,Female,Cardiology,Migraine,Metformin,12,Critical
+P1402,74,Male,Emergency,COVID-19,Ibuprofen,16,Recovered
+P1403,72,Male,Oncology,Asthma,Ibuprofen,6,Critical
+P1404,76,Male,Radiology,Fracture,Paracetamol,24,Under Treatment
+P1405,28,Male,Neurology,Hypertension,Paracetamol,21,Under Treatment
+P1406,8,Male,Oncology,Diabetes,Aspirin,26,Recovered
+P1407,92,Male,Oncology,Migraine,Amoxicillin,4,Under Treatment
+P1408,90,Female,Oncology,Hypertension,Paracetamol,8,Recovered
+P1409,58,Female,Oncology,Cancer,Aspirin,28,Critical
+P1410,50,Female,Oncology,Hypertension,Ibuprofen,28,Under Treatment
+P1411,92,Female,Radiology,Fracture,Insulin,5,Under Treatment
+P1412,41,Male,Pediatrics,COVID-19,Insulin,4,Under Treatment
+P1413,64,Female,Cardiology,COVID-19,Insulin,27,Recovered
+P1414,63,Female,Emergency,Cancer,Metformin,17,Critical
+P1415,73,Female,Oncology,Hypertension,Aspirin,1,Under Treatment
+P1416,84,Female,Oncology,Fracture,Amoxicillin,13,Critical
+P1417,92,Female,Neurology,COVID-19,Insulin,16,Under Treatment
+P1418,29,Female,Cardiology,COVID-19,Ibuprofen,13,Critical
+P1419,46,Female,Oncology,COVID-19,Aspirin,3,Recovered
+P1420,6,Female,Oncology,Asthma,Paracetamol,18,Critical
+P1421,69,Male,Cardiology,Diabetes,Amoxicillin,15,Critical
+P1422,25,Female,Cardiology,Diabetes,Aspirin,2,Recovered
+P1423,10,Female,Oncology,Fracture,Amoxicillin,24,Recovered
+P1424,30,Male,Radiology,Fracture,Ibuprofen,18,Under Treatment
+P1425,5,Female,Cardiology,Asthma,Metformin,23,Critical
+P1426,33,Female,Pediatrics,Migraine,Paracetamol,22,Under Treatment
+P1427,65,Male,Cardiology,Hypertension,Paracetamol,18,Recovered
+P1428,96,Female,Emergency,Fracture,Amoxicillin,15,Recovered
+P1429,49,Female,Oncology,COVID-19,Insulin,11,Recovered
+P1430,85,Female,Radiology,Fracture,Metformin,26,Recovered
+P1431,63,Male,Cardiology,Fracture,Metformin,25,Critical
+P1432,86,Female,Cardiology,Cancer,Paracetamol,27,Under Treatment
+P1433,27,Female,Radiology,Hypertension,Amoxicillin,17,Critical
+P1434,77,Female,Oncology,Cancer,Metformin,1,Critical
+P1435,98,Male,Oncology,Asthma,Metformin,9,Recovered
+P1436,99,Male,Neurology,Diabetes,Insulin,1,Recovered
+P1437,21,Female,Emergency,Asthma,Ibuprofen,16,Under Treatment
+P1438,55,Male,Emergency,Hypertension,Aspirin,6,Under Treatment
+P1439,92,Female,Radiology,COVID-19,Insulin,17,Critical
+P1440,69,Female,Pediatrics,Cancer,Amoxicillin,5,Recovered
+P1441,3,Male,Oncology,COVID-19,Aspirin,21,Under Treatment
+P1442,23,Female,Radiology,Asthma,Ibuprofen,5,Recovered
+P1443,53,Male,Neurology,Fracture,Amoxicillin,5,Recovered
+P1444,74,Male,Emergency,Diabetes,Ibuprofen,10,Recovered
+P1445,83,Male,Oncology,COVID-19,Metformin,17,Under Treatment
+P1446,85,Female,Cardiology,Migraine,Metformin,14,Critical
+P1447,73,Female,Neurology,COVID-19,Ibuprofen,14,Critical
+P1448,1,Male,Emergency,COVID-19,Metformin,19,Critical
+P1449,45,Male,Neurology,COVID-19,Amoxicillin,13,Critical
+P1450,4,Female,Emergency,Hypertension,Aspirin,1,Recovered
+P1451,32,Male,Radiology,Cancer,Amoxicillin,2,Under Treatment
+P1452,92,Male,Emergency,Fracture,Amoxicillin,8,Critical
+P1453,39,Male,Pediatrics,COVID-19,Amoxicillin,26,Under Treatment
+P1454,34,Female,Pediatrics,Diabetes,Paracetamol,22,Under Treatment
+P1455,3,Female,Pediatrics,Hypertension,Paracetamol,27,Recovered
+P1456,50,Male,Pediatrics,Fracture,Insulin,12,Under Treatment
+P1457,65,Male,Oncology,Asthma,Metformin,22,Under Treatment
+P1458,5,Female,Radiology,Cancer,Ibuprofen,27,Under Treatment
+P1459,57,Male,Oncology,Asthma,Amoxicillin,17,Recovered
+P1460,47,Female,Neurology,Fracture,Aspirin,23,Under Treatment
+P1461,79,Female,Neurology,Diabetes,Aspirin,5,Recovered
+P1462,85,Female,Pediatrics,Cancer,Amoxicillin,14,Under Treatment
+P1463,66,Male,Neurology,Cancer,Ibuprofen,11,Critical
+P1464,51,Female,Neurology,Cancer,Metformin,7,Under Treatment
+P1465,38,Female,Pediatrics,Migraine,Insulin,28,Recovered
+P1466,98,Male,Pediatrics,Asthma,Insulin,6,Recovered
+P1467,50,Male,Emergency,Migraine,Aspirin,2,Recovered
+P1468,82,Female,Pediatrics,Asthma,Paracetamol,15,Critical
+P1469,91,Female,Oncology,Asthma,Aspirin,19,Recovered
+P1470,63,Female,Neurology,Migraine,Paracetamol,2,Under Treatment
+P1471,52,Female,Oncology,Hypertension,Insulin,25,Recovered
+P1472,38,Male,Oncology,Asthma,Ibuprofen,1,Recovered
+P1473,88,Female,Emergency,Fracture,Amoxicillin,15,Under Treatment
+P1474,30,Male,Neurology,Hypertension,Insulin,23,Under Treatment
+P1475,51,Female,Emergency,Migraine,Metformin,17,Recovered
+P1476,5,Female,Emergency,Hypertension,Aspirin,29,Recovered
+P1477,4,Male,Radiology,Migraine,Insulin,10,Critical
+P1478,56,Female,Neurology,Asthma,Amoxicillin,17,Recovered
+P1479,74,Female,Emergency,Migraine,Metformin,17,Under Treatment
+P1480,84,Female,Emergency,Migraine,Amoxicillin,24,Critical
+P1481,69,Female,Radiology,Asthma,Ibuprofen,2,Under Treatment
+P1482,6,Male,Oncology,Migraine,Paracetamol,21,Recovered
+P1483,66,Female,Emergency,Migraine,Paracetamol,13,Critical
+P1484,43,Male,Emergency,Fracture,Ibuprofen,16,Critical
+P1485,75,Male,Radiology,Hypertension,Amoxicillin,19,Under Treatment
+P1486,23,Male,Emergency,COVID-19,Paracetamol,23,Critical
+P1487,80,Female,Neurology,Cancer,Paracetamol,11,Recovered
+P1488,16,Male,Emergency,COVID-19,Aspirin,8,Recovered
+P1489,4,Male,Pediatrics,Migraine,Insulin,8,Recovered
+P1490,4,Female,Radiology,Diabetes,Insulin,24,Critical
+P1491,25,Female,Radiology,COVID-19,Aspirin,3,Critical
+P1492,96,Male,Emergency,Diabetes,Amoxicillin,3,Under Treatment
+P1493,27,Female,Emergency,Fracture,Ibuprofen,29,Recovered
+P1494,32,Female,Emergency,Migraine,Amoxicillin,18,Under Treatment
+P1495,61,Female,Emergency,Fracture,Metformin,26,Recovered
+P1496,51,Female,Emergency,Migraine,Metformin,19,Under Treatment
+P1497,21,Female,Radiology,Diabetes,Paracetamol,5,Critical
+P1498,82,Female,Oncology,Fracture,Ibuprofen,28,Critical
+P1499,42,Female,Oncology,Hypertension,Amoxicillin,29,Critical
+P1500,22,Female,Pediatrics,Cancer,Ibuprofen,21,Recovered
+P1501,70,Female,Cardiology,Migraine,Paracetamol,1,Recovered
+P1502,5,Female,Pediatrics,COVID-19,Ibuprofen,9,Critical
+P1503,12,Female,Neurology,Diabetes,Amoxicillin,26,Under Treatment
+P1504,46,Female,Neurology,Hypertension,Amoxicillin,2,Critical
+P1505,49,Male,Neurology,Hypertension,Paracetamol,14,Critical
+P1506,90,Male,Radiology,Diabetes,Aspirin,13,Recovered
+P1507,27,Female,Oncology,COVID-19,Insulin,9,Recovered
+P1508,26,Male,Cardiology,Asthma,Metformin,25,Under Treatment
+P1509,47,Female,Pediatrics,COVID-19,Metformin,25,Under Treatment
+P1510,86,Female,Oncology,COVID-19,Aspirin,15,Recovered
+P1511,56,Male,Emergency,COVID-19,Paracetamol,11,Recovered
+P1512,63,Male,Pediatrics,Cancer,Metformin,16,Recovered
+P1513,61,Female,Pediatrics,Diabetes,Paracetamol,17,Under Treatment
+P1514,26,Male,Cardiology,Migraine,Amoxicillin,4,Critical
+P1515,1,Male,Oncology,Migraine,Insulin,8,Critical
+P1516,99,Female,Neurology,Cancer,Amoxicillin,29,Under Treatment
+P1517,52,Female,Neurology,Cancer,Aspirin,15,Under Treatment
+P1518,47,Male,Radiology,Fracture,Paracetamol,24,Under Treatment
+P1519,86,Male,Cardiology,COVID-19,Ibuprofen,14,Under Treatment
+P1520,90,Male,Neurology,Asthma,Paracetamol,28,Under Treatment
+P1521,87,Female,Emergency,Migraine,Aspirin,14,Under Treatment
+P1522,88,Male,Neurology,Diabetes,Insulin,2,Under Treatment
+P1523,26,Male,Cardiology,Migraine,Insulin,14,Recovered
+P1524,59,Female,Oncology,Migraine,Ibuprofen,24,Critical
+P1525,7,Male,Oncology,COVID-19,Ibuprofen,3,Critical
+P1526,23,Male,Cardiology,COVID-19,Aspirin,14,Under Treatment
+P1527,18,Female,Neurology,Fracture,Paracetamol,26,Critical
+P1528,38,Female,Radiology,Hypertension,Paracetamol,3,Under Treatment
+P1529,15,Female,Emergency,Diabetes,Metformin,25,Recovered
+P1530,28,Female,Neurology,Fracture,Paracetamol,10,Critical
+P1531,39,Female,Pediatrics,COVID-19,Amoxicillin,25,Under Treatment
+P1532,17,Male,Neurology,COVID-19,Amoxicillin,7,Recovered
+P1533,86,Female,Emergency,COVID-19,Ibuprofen,26,Recovered
+P1534,44,Male,Cardiology,Cancer,Amoxicillin,25,Critical
+P1535,17,Male,Emergency,Asthma,Metformin,13,Recovered
+P1536,84,Female,Emergency,Fracture,Aspirin,25,Critical
+P1537,68,Male,Radiology,Asthma,Insulin,10,Recovered
+P1538,67,Female,Cardiology,Fracture,Metformin,9,Critical
+P1539,18,Female,Pediatrics,Asthma,Aspirin,15,Critical
+P1540,86,Female,Radiology,Cancer,Ibuprofen,2,Critical
+P1541,8,Male,Pediatrics,Migraine,Aspirin,8,Critical
+P1542,83,Male,Emergency,Hypertension,Aspirin,10,Under Treatment
+P1543,41,Female,Radiology,Hypertension,Amoxicillin,5,Recovered
+P1544,6,Male,Pediatrics,Hypertension,Ibuprofen,20,Under Treatment
+P1545,26,Male,Neurology,Cancer,Paracetamol,2,Critical
+P1546,59,Female,Oncology,Fracture,Insulin,24,Under Treatment
+P1547,59,Female,Cardiology,COVID-19,Paracetamol,13,Critical
+P1548,70,Male,Radiology,Cancer,Ibuprofen,5,Recovered
+P1549,33,Male,Emergency,Fracture,Amoxicillin,21,Recovered
+P1550,22,Male,Cardiology,Cancer,Aspirin,21,Under Treatment

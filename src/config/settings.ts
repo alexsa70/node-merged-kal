@@ -11,6 +11,25 @@ type AuthCredentials = {
   otpSecret?: string;
 };
 
+function ensureHttpUrl(value: string, envName: string): string {
+  let parsed: URL;
+  try {
+    parsed = new URL(value);
+  } catch {
+    throw new Error(
+      `Invalid ${envName}: "${value}". Expected an absolute URL like "https://example.com".`,
+    );
+  }
+
+  if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+    throw new Error(
+      `Invalid ${envName}: "${value}". Expected URL protocol to be "http:" or "https:".`,
+    );
+  }
+
+  return value;
+}
+
 function env(name: string): string | undefined {
   return process.env[name];
 }
@@ -76,12 +95,19 @@ export type { EnvData };
 
 export function getSettings(): AppSettings {
   const environment = env('ENVIRONMENT') ?? 'qa';
+  const apiHttpClientUrl = ensureHttpUrl(
+    env('API_HTTP_CLIENT.URL') ?? 'https://api.example.com',
+    'API_HTTP_CLIENT.URL',
+  );
+  const e2eBaseUrlRaw = env('E2E_BASE_URL');
+  const e2eBaseUrl = e2eBaseUrlRaw ? ensureHttpUrl(e2eBaseUrlRaw, 'E2E_BASE_URL') : undefined;
+
   return {
     profile: env('PROFILE') ?? 'api',
     environment,
     envData: getEnvData(environment),
     apiHttpClient: {
-      url: env('API_HTTP_CLIENT.URL') ?? 'https://api.example.com',
+      url: apiHttpClientUrl,
       timeoutMs: envNumber('API_HTTP_CLIENT.TIMEOUT', 30) * 1000,
     },
     authCredentials: readCreds('AUTH_CREDENTIALS'),
@@ -95,7 +121,7 @@ export function getSettings(): AppSettings {
     userRoleId: env('USER_ROLE_ID'),
     userBaseUrl: env('USER_BASE_URL'),
     e2e: {
-      baseUrl: env('E2E_BASE_URL'),
+      baseUrl: e2eBaseUrl,
       browserName: (env('E2E_BROWSER_NAME') as BrowserName) ?? 'chromium',
       headless: envBool('E2E_HEADLESS', true),
       slowMoMs: envNumber('E2E_SLOW_MO_MS', 0),

@@ -29,6 +29,27 @@ export class FileClient extends BaseClient {
     });
   }
 
+  async uploadManualFile(params: {
+    filePath: string;
+    orgId: string;
+    token: string;
+  }): Promise<APIResponse> {
+    const { filePath, orgId, token } = params;
+    const fileName = path.basename(filePath);
+    const buffer = fs.readFileSync(filePath);
+    const mimeType = resolveMimeType(filePath);
+
+    return step(`Upload manual file: ${fileName}`, async () => {
+      return this.post(
+        FileRoutes.UPLOAD_MANUAL,
+        undefined,
+        { org_id: orgId },
+        { file: { filename: fileName, buffer, contentType: mimeType } },
+        { Authorization: `Bearer ${token}` },
+      );
+    });
+  }
+
   async getFile(params: { orgId: string; projectId: string; fileId: string; token: string }): Promise<APIResponse> {
     const { orgId, projectId, fileId, token } = params;
     return step(`Get file: ${fileId}`, async () => {

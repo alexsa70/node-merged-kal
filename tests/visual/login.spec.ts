@@ -1,5 +1,6 @@
-import { test, expect } from './fixtures';
+import { test } from './fixtures';
 import { expectScreenshot, stabilizePage } from '../../src/tools/visual';
+import { LoginPage } from '../e2e/pages/loginPage';
 
 /**
  * Visual tests for the Login page.
@@ -12,7 +13,8 @@ test.describe('Login page visual', () => {
   test.beforeEach(async ({ page, settings }) => {
     const { baseUrl } = settings.e2e;
     if (!baseUrl) test.skip(true, 'E2E_BASE_URL not configured');
-    await page.goto(baseUrl!);
+    const loginPage = new LoginPage(page);
+    await loginPage.open(baseUrl!);
     await stabilizePage(page);
   });
 
@@ -21,9 +23,8 @@ test.describe('Login page visual', () => {
   });
 
   test('login page - password field masked', async ({ page }) => {
-    // Ensure password field renders correctly (masked)
-    const passwordField = page.locator('input[type="password"]').first();
-    if (await passwordField.isVisible({ timeout: 5_000 }).catch(() => false)) {
+    const loginPage = new LoginPage(page);
+    if (await loginPage.passwordInput.isVisible({ timeout: 5_000 }).catch(() => false)) {
       await expectScreenshot(page, 'login-with-password-field.png', { fullPage: true });
     } else {
       test.skip(true, 'No password field found on login page');
@@ -34,17 +35,13 @@ test.describe('Login page visual', () => {
     const creds = settings.authCredentials;
     if (!creds) test.skip(true, 'AUTH_CREDENTIALS not configured');
 
-    const usernameInput = page.locator('input[name="identity"], input[type="email"]').first();
-    const passwordInput = page.locator('input[type="password"]').first();
-
-    if (await usernameInput.isVisible({ timeout: 5_000 }).catch(() => false)) {
-      await usernameInput.fill(creds!.identity);
-      await passwordInput.fill('••••••••'); // Don't screenshot real password
+    const loginPage = new LoginPage(page);
+    if (await loginPage.usernameInput.isVisible({ timeout: 5_000 }).catch(() => false)) {
+      await loginPage.fillForm(creds!.identity, '••••••••');
 
       await expectScreenshot(page, 'login-filled.png', {
         fullPage: true,
-        // Mask the password field to avoid capturing actual value
-        mask: [passwordInput],
+        mask: [loginPage.passwordInput],
       });
     } else {
       test.skip(true, 'Login form not visible');

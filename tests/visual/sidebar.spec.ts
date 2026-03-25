@@ -1,5 +1,6 @@
 import { test } from './fixtures';
 import { expectElementScreenshot, stabilizePage } from '../../src/tools/visual';
+import { SidebarPage } from '../e2e/pages/sidebarPage';
 
 /**
  * Visual tests for the Sidebar navigation.
@@ -13,35 +14,22 @@ test.describe('Sidebar visual', () => {
   });
 
   test('sidebar - regular user @smoke', async ({ authedPage: page }) => {
+    const sidebar = new SidebarPage(page);
+    await sidebar.container.waitFor({ state: 'visible', timeout: 15_000 });
     await stabilizePage(page);
 
-    const sidebar = page.locator('[data-testid="sidebar"], nav, aside').first();
-    const visible = await sidebar.isVisible({ timeout: 5_000 }).catch(() => false);
-    if (!visible) test.skip(true, 'Sidebar not found');
-
-    await expectElementScreenshot(sidebar, 'sidebar-regular-user.png', {
-      mask: [
-        page.locator('[data-testid="user-avatar"]'),
-        page.locator('[data-testid="user-name"]'),
-      ],
+    await expectElementScreenshot(sidebar.container, 'sidebar-regular-user.png', {
+      mask: [sidebar.userSection],
     });
   });
 
   test('sidebar - collapsed state', async ({ authedPage: page }) => {
-    await stabilizePage(page);
+    const sidebar = new SidebarPage(page);
+    await sidebar.container.waitFor({ state: 'visible', timeout: 15_000 });
 
-    const toggleBtn = page.locator('[data-testid="sidebar-toggle"], [data-testid="sidebar-toggler"]').first();
-    const toggleVisible = await toggleBtn.isVisible({ timeout: 3_000 }).catch(() => false);
+    await sidebar.ensureCollapsed();
+    await page.waitForTimeout(400); // wait for collapse animation
 
-    if (toggleVisible) {
-      await toggleBtn.click();
-      await page.waitForTimeout(400); // wait for animation
-    }
-
-    const sidebar = page.locator('[data-testid="sidebar"], nav, aside').first();
-    const visible = await sidebar.isVisible({ timeout: 5_000 }).catch(() => false);
-    if (!visible) test.skip(true, 'Sidebar not found');
-
-    await expectElementScreenshot(sidebar, 'sidebar-collapsed.png');
+    await expectElementScreenshot(sidebar.container, 'sidebar-collapsed.png');
   });
 });
