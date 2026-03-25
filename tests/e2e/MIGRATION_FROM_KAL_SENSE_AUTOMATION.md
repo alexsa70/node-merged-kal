@@ -77,3 +77,5 @@ npx playwright test tests/e2e/specs/*page*.spec.ts --project=e2e
 3. Port test flow into `tests/e2e/specs/*.spec.ts`.
 4. Replace pytest fixtures with Playwright fixtures or helper methods.
 5. Keep `test.skip(...)` for missing env/credentials.
+6.
+
