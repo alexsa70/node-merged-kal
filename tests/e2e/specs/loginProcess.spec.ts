@@ -1,17 +1,14 @@
-import { test } from '@playwright/test';
-import { getSettings } from '../../../src/config/settings';
+import { test } from '../fixtures';
 import { LoginPage } from '../pages/loginPage';
 
-const settings = getSettings();
-
 test.describe('E2E login process', () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, settings }) => {
     test.skip(!settings.e2e.baseUrl, 'E2E_BASE_URL is not configured in .env');
     const loginPage = new LoginPage(page);
     await loginPage.open(String(settings.e2e.baseUrl));
   });
 
-  test('login with invalid username', async ({ page }) => {
+  test('login with invalid username', async ({ page, settings }) => {
     const creds = settings.authCredentialsUser ?? settings.authCredentials;
     test.skip(!creds, 'AUTH_CREDENTIALS_USER.* or AUTH_CREDENTIALS.* is not configured');
 
@@ -25,7 +22,7 @@ test.describe('E2E login process', () => {
     await loginPage.expectLoginFailedToast();
   });
 
-  test('login with invalid password', async ({ page }) => {
+  test('login with invalid password', async ({ page, settings }) => {
     const creds = settings.authCredentialsUser ?? settings.authCredentials;
     test.skip(!creds, 'AUTH_CREDENTIALS_USER.* or AUTH_CREDENTIALS.* is not configured');
 
@@ -39,7 +36,7 @@ test.describe('E2E login process', () => {
     await loginPage.expectLoginFailedToast();
   });
 
-  test('login with valid credentials', async ({ page }) => {
+  test('login with valid credentials', async ({ page, settings }) => {
     const creds = settings.authCredentialsUser ?? settings.authCredentials;
     test.skip(!creds, 'AUTH_CREDENTIALS_USER.* or AUTH_CREDENTIALS.* is not configured');
 

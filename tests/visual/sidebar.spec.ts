@@ -15,6 +15,7 @@ test.describe('Sidebar visual', () => {
 
   test('sidebar - regular user @smoke', async ({ authedPage: page }) => {
     const sidebar = new SidebarPage(page);
+    await stabilizePage(page);
     await sidebar.container.waitFor({ state: 'visible', timeout: 15_000 });
     await stabilizePage(page);
 

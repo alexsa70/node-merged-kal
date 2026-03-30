@@ -1,36 +1,36 @@
-import { expect, test } from '@playwright/test';
-import { getSettings } from '../../../src/config/settings';
+import { test, expect } from '../fixtures';
 import { AssistPage } from '../pages/assistPage';
-import { LoginPage } from '../pages/loginPage';
 import { SidebarPage } from '../pages/sidebarPage';
 import { UserSettingsPage } from '../pages/userSettingsPage';
 
-const settings = getSettings();
+async function getCurrentUsername(settingsPage: UserSettingsPage, baseUrl: string): Promise<string> {
+  await settingsPage.open(baseUrl);
+  const username = await settingsPage.getUsername();
+  expect(username.trim().length).toBeGreaterThan(0);
+  return username;
+}
 
-test.describe('E2E assist page', () => {
-  test.beforeEach(async ({ page }) => {
-    test.skip(!settings.e2e.baseUrl, 'E2E_BASE_URL is not configured in .env');
-    const creds = settings.authCredentialsUser ?? settings.authCredentials;
-    test.skip(!creds, 'AUTH_CREDENTIALS_USER.* or AUTH_CREDENTIALS.* is not configured');
+test.describe('Username personalization', () => {
+  test(`Verify current user's username is displayed in User Settings`, async ({ authedPage: page, settings }) => {
+    const settingsPage = new UserSettingsPage(page);
 
-    const loginPage = new LoginPage(page);
-    await loginPage.open(String(settings.e2e.baseUrl));
-    await loginPage.loginAsRegularUser();
-    await loginPage.expectLoginSuccess();
+    await getCurrentUsername(settingsPage, String(settings.e2e.baseUrl));
   });
 
-  test('validate username personalization', async ({ page }) => {
+  test(`Verify current user's username is displayed in Sidebar`, async ({ authedPage: page, settings }) => {
+    const sidebarPage = new SidebarPage(page);
+    const settingsPage = new UserSettingsPage(page);
+
+    const username = await getCurrentUsername(settingsPage, String(settings.e2e.baseUrl));
+    await expect(sidebarPage.userSection).toContainText(new RegExp(username, 'i'));
+  });
+
+  test(`Verify current user's username is displayed in Assist welcome message`, async ({ authedPage: page, settings }) => {
     const sidebarPage = new SidebarPage(page);
     const settingsPage = new UserSettingsPage(page);
     const assistPage = new AssistPage(page);
 
-    await settingsPage.open(String(settings.e2e.baseUrl));
-    const username = await settingsPage.getUsername();
-    expect(username.trim().length).toBeGreaterThan(0);
-
-    const userSectionText = await sidebarPage.userSection.innerText();
-    expect(userSectionText.toLowerCase()).toContain(username.toLowerCase());
-
+    const username = await getCurrentUsername(settingsPage, String(settings.e2e.baseUrl));
     await sidebarPage.navigateToAssist();
     await assistPage.expectWelcomeTitleVisible();
     await assistPage.expectWelcomeContainsText(username);

@@ -27,8 +27,9 @@ export class LoginPage extends BasePage {
 
   async open(baseUrl: string): Promise<void> {
     await this.goto(baseUrl);
-    await expect(this.usernameInput).toBeVisible();
-    await expect(this.passwordInput).toBeVisible();
+    await this.page.waitForLoadState('networkidle');
+    await expect(this.usernameInput).toBeVisible({ timeout: 15_000 });
+    await expect(this.passwordInput).toBeVisible({ timeout: 15_000 });
   }
 
   async fillForm(identity: string, password: string): Promise<void> {

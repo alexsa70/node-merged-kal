@@ -1,5 +1,7 @@
-# Secrets
+# Secrets — local overrides (never commit real credentials)
 .env
+.env.local
+
 
 # Node
 node_modules/
@@ -18,3 +20,5 @@ allure-report/
 # IDE
 .idea/
 .vscode/
+
+.auth/visual-session.json

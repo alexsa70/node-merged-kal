@@ -99,13 +99,15 @@ export function getSettings(): AppSettings {
     env('API_HTTP_CLIENT.URL') ?? 'https://api.example.com',
     'API_HTTP_CLIENT.URL',
   );
-  const e2eBaseUrlRaw = env('E2E_BASE_URL');
+  const envData = getEnvData(environment);
+  const uiRoot = envData.uiUrl.replace(/\/$/, '');
+  const e2eBaseUrlRaw = env('E2E_BASE_URL') ?? (envData.orgName ? `${uiRoot}/${envData.orgName}` : uiRoot);
   const e2eBaseUrl = e2eBaseUrlRaw ? ensureHttpUrl(e2eBaseUrlRaw, 'E2E_BASE_URL') : undefined;
 
   return {
     profile: env('PROFILE') ?? 'api',
     environment,
-    envData: getEnvData(environment),
+    envData,
     apiHttpClient: {
       url: apiHttpClientUrl,
       timeoutMs: envNumber('API_HTTP_CLIENT.TIMEOUT', 30) * 1000,

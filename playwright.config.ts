@@ -3,29 +3,28 @@ import { getSettings } from './src/config/settings';
 
 const settings = getSettings();
 
-function shouldRunApiGlobalSetup(): boolean {
+/**
+ * Returns the global-setup path only when API projects are being run.
+ * E2E and visual projects do not need a global setup.
+ */
+function shouldRunApiGlobalSetup(): string | undefined {
   const args = process.argv.slice(2);
-  const selectedProjects = new Set<string>();
 
   for (let i = 0; i < args.length; i += 1) {
     const arg = args[i];
-
-    if (arg === '--project' && args[i + 1]) {
-      selectedProjects.add(args[i + 1]);
-      i += 1;
-      continue;
-    }
-
-    if (arg.startsWith('--project=')) {
-      selectedProjects.add(arg.slice('--project='.length));
+    const project = arg === '--project' ? args[i + 1] : arg.startsWith('--project=') ? arg.slice('--project='.length) : null;
+    if (project === 'api' || project === 'api-e2e') {
+      return './global-setup.ts';
     }
   }
 
-  if (selectedProjects.size === 0) {
-    return true;
+  // No --project flag means all projects run — include API setup.
+  const hasProjectFilter = args.some(a => a === '--project' || a.startsWith('--project='));
+  if (!hasProjectFilter) {
+    return './global-setup.ts';
   }
 
-  return selectedProjects.has('api') || selectedProjects.has('api-e2e');
+  return undefined;
 }
 
 export default defineConfig({
@@ -33,14 +32,14 @@ export default defineConfig({
   timeout: 60_000,
   fullyParallel: true,
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  workers: process.env.CI ? 2 : 1,
   reporter: [
     ['list'],
     ['html', { open: 'never' }],
     ['allure-playwright'],
     ['junit', { outputFile: 'playwright-results.xml' }],
   ],
-  globalSetup: shouldRunApiGlobalSetup() ? './global-setup.ts' : undefined,
+  globalSetup: shouldRunApiGlobalSetup(),
 
   use: {
     trace: 'retain-on-failure',

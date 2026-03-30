@@ -1,46 +1,52 @@
-import { test as base, Page } from '@playwright/test';
+import { test as base, BrowserContext, Page } from '@playwright/test';
 import { getSettings, AppSettings } from '../../src/config/settings';
 import { LoginPage } from '../e2e/pages/loginPage';
 
 type VisualFixtures = {
   settings: AppSettings;
-  /**
-   * Authenticated page: navigates to the app and logs in via UI credentials.
-   * Reused within a describe block to avoid re-login on every test.
-   */
   authedPage: Page;
 };
 
-export const test = base.extend<VisualFixtures>({
+type VisualWorkerFixtures = {
+  regularUserContext: BrowserContext;
+  regularUserPage: Page;
+};
+
+export const test = base.extend<VisualFixtures, VisualWorkerFixtures>({
   settings: async ({}, use) => {
     await use(getSettings());
   },
 
-  authedPage: async ({ page, settings }, use) => {
+  regularUserContext: [async ({ browser }, use) => {
+    const settings = getSettings();
     const { baseUrl } = settings.e2e;
-    const creds = settings.authCredentials;
+    const creds = settings.authCredentialsUser ?? settings.authCredentials;
 
-    if (!baseUrl) {
-      throw new Error('E2E_BASE_URL is not configured. Set it in .env');
-    }
+    test.skip(!baseUrl, 'E2E_BASE_URL is not configured');
+    test.skip(!creds, 'AUTH_CREDENTIALS_USER.* or AUTH_CREDENTIALS.* is not configured');
 
-    await page.goto(baseUrl);
-    await page.waitForLoadState('networkidle');
+    const context = await browser.newContext({ ignoreHTTPSErrors: true });
+    await use(context);
+    await context.close();
+  }, { scope: 'worker' }],
 
-    if (creds) {
-      const loginPage = new LoginPage(page);
+  regularUserPage: [async ({ regularUserContext }, use) => {
+    const settings = getSettings();
+    const { baseUrl } = settings.e2e;
+    const page = await regularUserContext.newPage();
+    const loginPage = new LoginPage(page);
 
-      if (await loginPage.usernameInput.isVisible({ timeout: 10_000 }).catch(() => false)) {
-        await loginPage.fillForm(creds.identity, creds.password);
-        await loginPage.passwordInput.press('Enter');
-        await page.waitForURL((url) => !url.pathname.includes('login') && url.href !== baseUrl, {
-          timeout: 30_000,
-        });
-        await page.waitForLoadState('networkidle');
-      }
-    }
-
+    await loginPage.open(baseUrl!);
+    await loginPage.loginAsRegularUser();
+    await loginPage.expectLoginSuccess();
     await use(page);
+    await page.close();
+  }, { scope: 'worker' }],
+
+  authedPage: async ({ regularUserPage }, use) => {
+    const settings = getSettings();
+    await regularUserPage.goto(settings.e2e.baseUrl!, { waitUntil: 'domcontentloaded', timeout: 60_000 });
+    await use(regularUserPage);
   },
 });
 
