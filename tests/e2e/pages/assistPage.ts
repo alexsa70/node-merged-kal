@@ -31,7 +31,7 @@ export class AssistPage extends BasePage {
     return this.page.locator(UiLocators.chat.processingLoader).first();
   }
 
-  private get conversations(): Locator {
+  get conversations(): Locator {
     return this.page.locator(UiLocators.chat.conversations).first();
   }
 
@@ -51,6 +51,10 @@ export class AssistPage extends BasePage {
   async sendMessage(query: string): Promise<void> {
     await this.chatTextarea.fill(query);
     await this.page.keyboard.press('Enter');
+  }
+
+  async clickUploadButton(): Promise<void> {
+    await this.page.getByTestId('chat-input-upload-button').click();
   }
 
   async sendMessageAndWaitForResponse(query: string): Promise<void> {

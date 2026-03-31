@@ -29,6 +29,18 @@ export class LoginPage extends BasePage {
     return this.page.locator(UiLocators.login.submitButton).first();
   }
 
+  private get logo(): Locator {
+    return this.page.getByTestId('new-login-page-logo').first();
+  }
+
+  private get welcomeTitle(): Locator {
+    return this.page.getByText('Welcome to Sense').first();
+  }
+
+  private get subtitle(): Locator {
+    return this.page.getByText('The perfect connection').first();
+  }
+
   async open(baseUrl: string): Promise<void> {
     await this.goto(baseUrl);
     await this.page.waitForLoadState('networkidle');
@@ -67,6 +79,32 @@ export class LoginPage extends BasePage {
   async expectLoginSuccess(): Promise<void> {
     await expect(this.usernameInput).toBeHidden({ timeout: 30_000 });
     await this.page.waitForLoadState('networkidle');
+  }
+
+  async expectPageElementsVisible(): Promise<void> {
+    await expect(this.usernameInput).toBeVisible();
+    await expect(this.passwordInput).toBeVisible();
+    await expect(this.submitButton).toBeVisible();
+    await expect(this.logo).toBeVisible();
+    await expect(this.welcomeTitle).toBeVisible();
+    await expect(this.subtitle).toBeVisible();
+  }
+
+  async expectSubmitButtonEnabled(): Promise<void> {
+    await expect(this.submitButton).toBeEnabled();
+  }
+
+  async getUsernameValue(): Promise<string> {
+    return this.usernameInput.inputValue();
+  }
+
+  async getPasswordValue(): Promise<string> {
+    return this.passwordInput.inputValue();
+  }
+
+  async clearFields(): Promise<void> {
+    await this.usernameInput.clear();
+    await this.passwordInput.clear();
   }
 
   async expectLoginFailedError(): Promise<void> {
