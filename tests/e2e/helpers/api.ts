@@ -15,6 +15,8 @@ type CreateProjectResult = {
 };
 
 export class E2eApiSession {
+  private readonly tokenCache = new Map<SupportedRole, string>();
+
   private constructor(
     private readonly context: APIRequestContext,
     readonly apiClient: ApiClient,
@@ -36,6 +38,10 @@ export class E2eApiSession {
   }
 
   async tokenForRole(role: SupportedRole): Promise<string> {
+    if (this.tokenCache.has(role)) {
+      return this.tokenCache.get(role)!;
+    }
+
     const creds = role === 'admin'
       ? this.settings.authCredentialsAdmin
       : role === 'user'
@@ -63,6 +69,8 @@ export class E2eApiSession {
     if (typeof body.token !== 'string') {
       throw new Error(`Token is missing in login response for ${role}`);
     }
+
+    this.tokenCache.set(role, body.token);
     return body.token;
   }
 

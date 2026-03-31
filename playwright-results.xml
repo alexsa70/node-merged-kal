@@ -1,10 +1,126 @@
-<testsuites id="" name="" tests="3" failures="0" skipped="0" errors="0" time="7.717144">
-<testsuite name="e2e/specs/assistPage.spec.ts" timestamp="2026-03-30T12:22:43.232Z" hostname="e2e" tests="3" failures="0" skipped="0" time="2.24" errors="0">
-<testcase name="Username personalization › Verify current user&apos;s username is displayed in User Settings" classname="e2e/specs/assistPage.spec.ts" time="0.673">
+<testsuites id="" name="" tests="26" failures="0" skipped="2" errors="0" time="65.011024">
+<testsuite name="e2e/admins/connectors/connectorsPage.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="E2E connectors page › source pytest file is empty (no scenarios to port)" classname="e2e/admins/connectors/connectorsPage.spec.ts" time="0">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
 </testcase>
-<testcase name="Username personalization › Verify current user&apos;s username is displayed in Sidebar" classname="e2e/specs/assistPage.spec.ts" time="0.724">
+</testsuite>
+<testsuite name="e2e/assist/assistConversationVerification.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="1" failures="0" skipped="0" time="6.36" errors="0">
+<testcase name="E2E assist conversation verification › verify Assist displays conversation results" classname="e2e/assist/assistConversationVerification.spec.ts" time="6.36">
 </testcase>
-<testcase name="Username personalization › Verify current user&apos;s username is displayed in Assist welcome message" classname="e2e/specs/assistPage.spec.ts" time="0.843">
+</testsuite>
+<testsuite name="e2e/assist/assistPage.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="1" failures="0" skipped="0" time="0.71" errors="0">
+<testcase name="Username presentation on Assist page › Verify current user&apos;s username is displayed in Assist welcome message" classname="e2e/assist/assistPage.spec.ts" time="0.71">
+</testcase>
+</testsuite>
+<testsuite name="e2e/audio/audioPage.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="2" failures="0" skipped="0" time="3.855" errors="0">
+<testcase name="E2E audio page › audio page loads and shows files count for today" classname="e2e/audio/audioPage.spec.ts" time="1.497">
+</testcase>
+<testcase name="E2E audio page › uploaded audio file name is truncated to 38 chars in table view" classname="e2e/audio/audioPage.spec.ts" time="2.358">
+<system-out>
+<![CDATA[2026-03-31T06:22:54.818Z | HTTP_CLIENT | INFO | Make POST request to /login
+2026-03-31T06:22:55.616Z | HTTP_CLIENT | INFO | Got response 200 from https://kal-sense-bynet.kaleidoo-dev.com/login
+2026-03-31T06:22:55.623Z | HTTP_CLIENT | INFO | Make POST request to /api/manual_loader/upload_manual_file
+2026-03-31T06:22:56.184Z | HTTP_CLIENT | INFO | Got response 200 from https://kal-sense-bynet.kaleidoo-dev.com/api/manual_loader/upload_manual_file
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e/audio/audioUpload.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="1" failures="0" skipped="0" time="1.872" errors="0">
+<testcase name="E2E audio upload › upload audio file and validate file count increases by one" classname="e2e/audio/audioUpload.spec.ts" time="1.872">
+<system-out>
+<![CDATA[2026-03-31T06:22:57.588Z | HTTP_CLIENT | INFO | Make POST request to /api/manual_loader/upload_manual_file
+2026-03-31T06:22:57.991Z | HTTP_CLIENT | INFO | Got response 200 from https://kal-sense-bynet.kaleidoo-dev.com/api/manual_loader/upload_manual_file
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e/documents/documentsUploading.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="4" failures="0" skipped="0" time="10.86" errors="0">
+<testcase name="E2E document uploading and validation › upload document and validate count increase (word_file_with_a_very_long_filename_for_testing.docx)" classname="e2e/documents/documentsUploading.spec.ts" time="4.377">
+<system-out>
+<![CDATA[2026-03-31T06:22:59.518Z | HTTP_CLIENT | INFO | Make POST request to /api/manual_loader/upload_manual_file
+2026-03-31T06:23:03.132Z | HTTP_CLIENT | INFO | Got response 200 from https://kal-sense-bynet.kaleidoo-dev.com/api/manual_loader/upload_manual_file
+]]>
+</system-out>
+</testcase>
+<testcase name="E2E document uploading and validation › uploaded doc file name is truncated to 38 chars in table view (word_file_with_a_very_long_filename_for_testing.docx)" classname="e2e/documents/documentsUploading.spec.ts" time="4.024">
+<system-out>
+<![CDATA[2026-03-31T06:23:03.580Z | HTTP_CLIENT | INFO | Make POST request to /api/manual_loader/upload_manual_file
+2026-03-31T06:23:06.776Z | HTTP_CLIENT | INFO | Got response 200 from https://kal-sense-bynet.kaleidoo-dev.com/api/manual_loader/upload_manual_file
+]]>
+</system-out>
+</testcase>
+<testcase name="E2E document uploading and validation › upload document and validate count increase (medical_records_with_a_very_long_filename_for_testing.csv)" classname="e2e/documents/documentsUploading.spec.ts" time="1.479">
+<system-out>
+<![CDATA[2026-03-31T06:23:07.909Z | HTTP_CLIENT | INFO | Make POST request to /api/manual_loader/upload_manual_file
+2026-03-31T06:23:08.213Z | HTTP_CLIENT | INFO | Got response 200 from https://kal-sense-bynet.kaleidoo-dev.com/api/manual_loader/upload_manual_file
+]]>
+</system-out>
+</testcase>
+<testcase name="E2E document uploading and validation › uploaded doc file name is truncated to 38 chars in table view (medical_records_with_a_very_long_filename_for_testing.csv)" classname="e2e/documents/documentsUploading.spec.ts" time="0.98">
+<system-out>
+<![CDATA[2026-03-31T06:23:08.985Z | HTTP_CLIENT | INFO | Make POST request to /api/manual_loader/upload_manual_file
+2026-03-31T06:23:09.246Z | HTTP_CLIENT | INFO | Got response 200 from https://kal-sense-bynet.kaleidoo-dev.com/api/manual_loader/upload_manual_file
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="e2e/history/historyPage.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="2" failures="0" skipped="0" time="1.98" errors="0">
+<testcase name="E2E history page › Verify History preview displays existing conversations for regular user" classname="e2e/history/historyPage.spec.ts" time="0.34">
+</testcase>
+<testcase name="E2E history page › Verify admin user can open full History page and search existing conversations" classname="e2e/history/historyPage.spec.ts" time="1.64">
+</testcase>
+</testsuite>
+<testsuite name="e2e/login/homeSmoke.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="2" failures="0" skipped="0" time="7.037" errors="0">
+<testcase name="E2E home smoke › base url opens login page" classname="e2e/login/homeSmoke.spec.ts" time="3.707">
+</testcase>
+<testcase name="E2E home smoke › login page has visible form and non-empty title" classname="e2e/login/homeSmoke.spec.ts" time="3.33">
+</testcase>
+</testsuite>
+<testsuite name="e2e/login/loginProcess.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="3" failures="0" skipped="0" time="15.285" errors="0">
+<testcase name="Login process › Verify login fails with invalid username" classname="e2e/login/loginProcess.spec.ts" time="4.18">
+</testcase>
+<testcase name="Login process › Verify login fails with invalid password" classname="e2e/login/loginProcess.spec.ts" time="3.993">
+</testcase>
+<testcase name="Login process › Verify user can log in with valid credentials" classname="e2e/login/loginProcess.spec.ts" time="7.112">
+</testcase>
+</testsuite>
+<testsuite name="e2e/media/albums/grudAlbum.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="1" failures="0" skipped="0" time="2.318" errors="0">
+<testcase name="E2E albums page › create / validate / delete /validate album" classname="e2e/media/albums/grudAlbum.spec.ts" time="2.318">
+</testcase>
+</testsuite>
+<testsuite name="e2e/media/mediaPage.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="1" failures="0" skipped="1" time="0" errors="0">
+<testcase name="E2E media page › source pytest file is empty (no scenarios to port)" classname="e2e/media/mediaPage.spec.ts" time="0">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="e2e/sidebar/sidebarNavigation.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="5" failures="0" skipped="0" time="2.688" errors="0">
+<testcase name="E2E sidebar navigation › sidebar navigation for regular user" classname="e2e/sidebar/sidebarNavigation.spec.ts" time="0.922">
+</testcase>
+<testcase name="E2E sidebar navigation › admin section is hidden for regular user" classname="e2e/sidebar/sidebarNavigation.spec.ts" time="0.343">
+</testcase>
+<testcase name="E2E sidebar navigation › admin submenu navigation for admin user" classname="e2e/sidebar/sidebarNavigation.spec.ts" time="0.704">
+</testcase>
+<testcase name="E2E sidebar navigation › sidebar toggle › collapse and expand (regular)" classname="e2e/sidebar/sidebarNavigation.spec.ts" time="0.346">
+</testcase>
+<testcase name="E2E sidebar navigation › sidebar toggle › collapse and expand (admin)" classname="e2e/sidebar/sidebarNavigation.spec.ts" time="0.373">
+</testcase>
+</testsuite>
+<testsuite name="e2e/sidebar/userOnSidebar.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="1" failures="0" skipped="0" time="0.588" errors="0">
+<testcase name="Username presentation on sidebar. › Verify current user&apos;s username is displayed in Sidebar" classname="e2e/sidebar/userOnSidebar.spec.ts" time="0.588">
+</testcase>
+</testsuite>
+<testsuite name="e2e/user settings/settingsPage.spec.ts" timestamp="2026-03-31T06:22:35.524Z" hostname="e2e" tests="1" failures="0" skipped="0" time="0.573" errors="0">
+<testcase name="E2E settings page › Verify current user&apos;s username is displayed in User Settings" classname="e2e/user settings/settingsPage.spec.ts" time="0.573">
 </testcase>
 </testsuite>
 </testsuites>

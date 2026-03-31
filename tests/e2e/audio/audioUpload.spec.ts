@@ -1,9 +1,10 @@
 import { test, expect } from '../fixtures';
 import { resolveFixtureFile } from '../helpers/api';
+import { openAudioPage } from './helpers';
 import { AudioFilesPage } from '../pages/audioFilesPage';
 import { SidebarPage } from '../pages/sidebarPage';
 
-const AUDIO_FILE = 'audio_file_short.ogg';
+const AUDIO_FILE = 'audio_file_with_a_very_long_filename_for_testing.ogg';
 
 test.describe('E2E audio upload', () => {
   test.describe.configure({ mode: 'serial' });
@@ -14,15 +15,13 @@ test.describe('E2E audio upload', () => {
     const sidebarPage = new SidebarPage(page);
     const audioPage = new AudioFilesPage(page);
 
-    await sidebarPage.openConnectors();
-    await sidebarPage.navigateToAudio();
+    await openAudioPage(sidebarPage);
 
     const initial = await audioPage.getFilesCount();
 
     await apiSession.uploadFile('admin', { fileName: AUDIO_FILE });
 
-    await sidebarPage.openConnectors();
-    await sidebarPage.navigateToAudio();
+    await openAudioPage(sidebarPage);
     const updated = await audioPage.waitForFilesCountAtLeast(initial + 1);
     expect(updated).toBeGreaterThanOrEqual(initial + 1);
   });

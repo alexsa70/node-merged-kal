@@ -10,7 +10,7 @@ export const UiEndpoints = {
   settings: '/user/settings',
   mediaGallery: '/media/files',
   mediaAlbums: '/media/albums',
-  connectors: '/admins/agents',
+  connectors: '/admins/connectors',
   automations: '/admins/automations',
   organization: '/admins/organization',
 } as const;
@@ -53,8 +53,8 @@ export const UiLocators = {
   chat: {
     textarea: '[data-testid="chat-input-textarea"]',
     submitButton: '[data-testid="chat-input-submit-button"]',
-    resultsArea: '[class="MarkDown_paragraph__bAxCu"]',
-    processingLoader: '[class="SearchRes_waitingMessage__im5hf"]',
+    conversations: '[data-testid="search-res-page-chat-conversations"]',
+    processingLoader: '[class*="SearchRes_waitingMessage__"]',
   },
   sidebar: {
     assistBtn: '[data-testid="sidebar-nav-assist-button"]',
@@ -104,6 +104,6 @@ export const UiLocators = {
     confirmDeleteButton: '[data-testid="confirm-button"]', // updated: was "button-confirm"
   },
   history: {
-    conversationCard: '[data-testid^="history-page-list-conversation-"]', // updated from CSS class
+    previewConversationCard: '[data-testid="Conversation-truncated-text"]',
   },
 } as const;

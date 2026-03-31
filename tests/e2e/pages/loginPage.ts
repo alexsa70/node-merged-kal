@@ -21,6 +21,10 @@ export class LoginPage extends BasePage {
     return this.page.locator(UiLocators.login.passwordInput).first();
   }
 
+  private get errorMessage(): Locator {
+    return this.page.locator(UiLocators.login.errorMessage).first();
+  }
+
   private get submitButton(): Locator {
     return this.page.locator(UiLocators.login.submitButton).first();
   }
@@ -61,12 +65,14 @@ export class LoginPage extends BasePage {
   }
 
   async expectLoginSuccess(): Promise<void> {
-    await this.expectCurrentPath(UiEndpoints.assist);
+    await expect(this.usernameInput).toBeHidden({ timeout: 30_000 });
+    await this.page.waitForLoadState('networkidle');
   }
 
-  async expectLoginFailedToast(): Promise<void> {
-    await this.expectToast(/login failed/i);
-    await expect(this.page.locator(UiLocators.toast.message).first()).toHaveText(/user name or password incorrect\./i);
+  async expectLoginFailedError(): Promise<void> {
+    await expect(this.errorMessage).toBeVisible();
+    await expect(this.errorMessage).toContainText(/invalid login details/i);
+    await expect(this.errorMessage).toContainText(/don't match our records/i);
   }
 
   static invalidUsernameVariant(creds: Credentials): Credentials {

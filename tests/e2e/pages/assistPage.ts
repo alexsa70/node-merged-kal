@@ -31,8 +31,13 @@ export class AssistPage extends BasePage {
     return this.page.locator(UiLocators.chat.processingLoader).first();
   }
 
-  private get resultsArea(): Locator {
-    return this.page.locator(UiLocators.chat.resultsArea).first();
+  private get conversations(): Locator {
+    return this.page.locator(UiLocators.chat.conversations).first();
+  }
+
+  private get firstResponseParagraph(): Locator {
+    return this.conversations.locator('p')
+      .first();
   }
 
   async expectWelcomeTitleVisible(): Promise<void> {
@@ -53,6 +58,7 @@ export class AssistPage extends BasePage {
     await this.sendMessage(query);
     await this.page.waitForURL(new RegExp(`${UiEndpoints.results}(?:[/?#]|$)`), { timeout: 30_000 });
     await this.processingLoader.waitFor({ state: 'hidden', timeout: 30_000 }).catch(() => undefined);
-    await expect(this.resultsArea).toHaveText(/\S+/, { timeout: 30_000 });
+    await expect(this.conversations).toBeVisible({ timeout: 30_000 });
+    await expect(this.firstResponseParagraph).toHaveText(/\S+/, { timeout: 30_000 });
   }
 }

@@ -3,9 +3,12 @@ import { resolveFixtureFile } from '../helpers/api';
 import { DocFilesPage } from '../pages/docFilesPage';
 import { SidebarPage } from '../pages/sidebarPage';
 
-const docFiles = ['word_file.docx', 'medical_records.csv'] as const;
+const docFiles = [
+  'word_file_with_a_very_long_filename_for_testing.docx',
+  'medical_records_with_a_very_long_filename_for_testing.csv',
+] as const;
 
-test.describe('E2E document page', () => {
+test.describe('E2E document uploading and validation', () => {
   test.describe.configure({ mode: 'serial' });
 
   for (const fileName of docFiles) {
@@ -22,13 +25,13 @@ test.describe('E2E document page', () => {
 
       await apiSession.uploadFile('admin', { fileName });
 
-      await sidebarPage.openConnectors();
+      //await sidebarPage.openConnectors();
       await sidebarPage.navigateToDocuments();
       const updated = await docPage.waitForFilesCountAtLeast(initial + 1);
       expect(updated).toBeGreaterThanOrEqual(initial + 1);
     });
 
-    test(`docs file name length in table (${fileName})`, async ({ authedPageAdmin: page, apiSession }) => {
+    test(`uploaded doc file name is truncated to 38 chars in table view (${fileName})`, async ({ authedPageAdmin: page, apiSession }) => {
       test.skip(!resolveFixtureFile(fileName), `Fixture file not found: ${fileName}`);
 
       await apiSession.uploadFile('admin', { fileName });
@@ -36,7 +39,7 @@ test.describe('E2E document page', () => {
       const sidebarPage = new SidebarPage(page);
       const docPage = new DocFilesPage(page);
 
-      await sidebarPage.navigateToAudio();
+      //await sidebarPage.navigateToAudio();
       await sidebarPage.navigateToDocuments();
       await docPage.switchToTableView();
 

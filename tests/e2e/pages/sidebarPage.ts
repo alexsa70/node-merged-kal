@@ -44,12 +44,16 @@ export class SidebarPage extends BasePage {
     await this.click(UiLocators.sidebar.audioBtn);
   }
 
+  async openHistoryPreview(): Promise<void> {
+    await this.click(UiLocators.sidebar.historyBtn);
+  }
+
   async navigateToUserSettings(): Promise<void> {
     await this.click(UiLocators.sidebar.userAvatar);
   }
 
   async openHistoryFullPage(): Promise<void> {
-    await this.click(UiLocators.sidebar.historyBtn);
+    await this.openHistoryPreview();
     await this.click(UiLocators.sidebar.seeAllHistoryBtn);
   }
 

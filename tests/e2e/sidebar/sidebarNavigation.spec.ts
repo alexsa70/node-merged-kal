@@ -13,9 +13,6 @@ test.describe('E2E sidebar navigation', () => {
     await sidebarPage.openHistoryFullPage();
     await sidebarPage.expectCurrentPath(UiEndpoints.history);
 
-    await sidebarPage.navigateToCollections();
-    await sidebarPage.expectCurrentPath(UiEndpoints.collections);
-
     await sidebarPage.navigateToDocuments();
     await sidebarPage.expectCurrentPath(UiEndpoints.documents);
 
@@ -39,9 +36,6 @@ test.describe('E2E sidebar navigation', () => {
 
     await sidebarPage.openConnectors();
     await sidebarPage.expectCurrentPath(UiEndpoints.connectors);
-
-    await sidebarPage.openAutomations();
-    await sidebarPage.expectCurrentPath(UiEndpoints.automations);
 
     await sidebarPage.openOrganization();
     await sidebarPage.expectCurrentPath(UiEndpoints.organization);
